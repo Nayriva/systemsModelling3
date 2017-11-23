@@ -12,7 +12,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		DigitalwatchStatemachine sm = new DigitalwatchStatemachine();
-		//sm.setTimer(new TimerService());
+		sm.setTimer(new TimerService());
 		DigitalWatchController controller = new DigitalWatchController(sm.getSCILogicUnit());
 		DigitalWatchViewImpl view = new DigitalWatchViewImpl(controller, sm.getSCIButtons(), sm);
 		sm.getSCIDisplay().setSCIDisplayOperationCallback(view);
