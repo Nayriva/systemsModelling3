@@ -114,7 +114,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		main_region_digitalWatch_main_timeEdit_edit_brPress,
 		main_region_digitalWatch_main_brPressed,
 		main_region_digitalWatch_main_blPressed,
-		main_region_digitalWatch_main_alarmEdit,
 		main_region_digitalWatch_time_running,
 		main_region_digitalWatch_time_stopped,
 		main_region_digitalWatch_time_brPressed,
@@ -141,7 +140,7 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[17];
+	private final boolean[] timeEvents = new boolean[16];
 	
 	
 	private long flash;
@@ -264,8 +263,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			return stateVector[0] == State.main_region_digitalWatch_main_brPressed;
 		case main_region_digitalWatch_main_blPressed:
 			return stateVector[0] == State.main_region_digitalWatch_main_blPressed;
-		case main_region_digitalWatch_main_alarmEdit:
-			return stateVector[0] == State.main_region_digitalWatch_main_alarmEdit;
 		case main_region_digitalWatch_time_running:
 			return stateVector[1] == State.main_region_digitalWatch_time_running;
 		case main_region_digitalWatch_time_stopped:
@@ -402,11 +399,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	private boolean check_main_region_digitalWatch_main_blPressed_tr0_tr0() {
-		return timeEvents[6];
+		return sCIButtons.bottomLeftReleased;
 	}
 	
 	private boolean check_main_region_digitalWatch_main_blPressed_tr1_tr1() {
-		return sCIButtons.bottomLeftReleased;
+		return timeEvents[6];
 	}
 	
 	private boolean check_main_region_digitalWatch_time_running_tr0_tr0() {
@@ -423,6 +420,10 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	private boolean check_main_region_digitalWatch_time_stopped_tr1_tr1() {
 		return timeEvents[8];
+	}
+	
+	private boolean check_main_region_digitalWatch_time_stopped_tr2_tr2() {
+		return sCIButtons.bottomLeftPressed;
 	}
 	
 	private boolean check_main_region_digitalWatch_time_brPressed_tr0_tr0() {
@@ -478,11 +479,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	private boolean check_main_region_digitalWatch_alarm_off_tr0_tr0() {
-		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_time));
+		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_blPressed));
 	}
 	
 	private boolean check_main_region_digitalWatch_alarm_on_tr0_tr0() {
-		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_time));
+		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_blPressed));
 	}
 	
 	private boolean check_main_region_digitalWatch_alarm_on_tr1_tr1() {
@@ -502,15 +503,15 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	private boolean check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_tr0_tr0() {
-		return timeEvents[14];
+		return (timeEvents[14]) && (getFlash()!=4);
+	}
+	
+	private boolean check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_tr1_tr1() {
+		return getFlash()==4;
 	}
 	
 	private boolean check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr0_tr0() {
 		return timeEvents[15];
-	}
-	
-	private boolean check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr1_tr1() {
-		return (timeEvents[16]) && (getFlash()==3);
 	}
 	
 	private void effect_main_region_digitalWatch_main_chrono_tr0() {
@@ -580,6 +581,8 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	private void effect_main_region_digitalWatch_main_brPressed_tr0() {
 		exitSequence_main_region_digitalWatch_main_brPressed();
+		sCILogicUnit.operationCallback.startTimeEditMode();
+		
 		enterSequence_main_region_digitalWatch_main_timeEdit_default();
 	}
 	
@@ -590,12 +593,14 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	private void effect_main_region_digitalWatch_main_blPressed_tr0() {
 		exitSequence_main_region_digitalWatch_main_blPressed();
-		enterSequence_main_region_digitalWatch_main_alarmEdit_default();
+		enterSequence_main_region_digitalWatch_main_time_default();
 	}
 	
 	private void effect_main_region_digitalWatch_main_blPressed_tr1() {
 		exitSequence_main_region_digitalWatch_main_blPressed();
-		enterSequence_main_region_digitalWatch_main_time_default();
+		sCILogicUnit.operationCallback.startAlarmEditMode();
+		
+		enterSequence_main_region_digitalWatch_main_timeEdit_default();
 	}
 	
 	private void effect_main_region_digitalWatch_time_running_tr0() {
@@ -618,6 +623,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	private void effect_main_region_digitalWatch_time_stopped_tr1() {
 		exitSequence_main_region_digitalWatch_time_stopped();
 		enterSequence_main_region_digitalWatch_time_running_default();
+	}
+	
+	private void effect_main_region_digitalWatch_time_stopped_tr2() {
+		exitSequence_main_region_digitalWatch_time_stopped();
+		enterSequence_main_region_digitalWatch_time_stopped_default();
 	}
 	
 	private void effect_main_region_digitalWatch_time_brPressed_tr0() {
@@ -726,14 +736,14 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		enterSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_default();
 	}
 	
+	private void effect_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_tr1() {
+		exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
+		enterSequence_main_region_digitalWatch_alarm_alarmTriggered_on_snooze_default();
+	}
+	
 	private void effect_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr0() {
 		exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff();
 		enterSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_default();
-	}
-	
-	private void effect_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr1() {
-		exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
-		enterSequence_main_region_digitalWatch_alarm_alarmTriggered_on_snooze_default();
 	}
 	
 	/* Entry action for state 'chrono'. */
@@ -746,11 +756,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		sCIDisplay.operationCallback.refreshDateDisplay();
 		
 		sCIDisplay.operationCallback.refreshTimeDisplay();
-	}
-	
-	/* Entry action for state 'timeEdit'. */
-	private void entryAction_main_region_digitalWatch_main_timeEdit() {
-		sCILogicUnit.operationCallback.startTimeEditMode();
 	}
 	
 	/* Entry action for state 'selection'. */
@@ -794,6 +799,8 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Entry action for state 'blPressed'. */
 	private void entryAction_main_region_digitalWatch_main_blPressed() {
 		timer.setTimer(this, 6, 1500, false);
+		
+		sCILogicUnit.operationCallback.setAlarm();
 	}
 	
 	/* Entry action for state 'running'. */
@@ -854,9 +861,21 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		timer.setTimer(this, 12, 2 * 1000, false);
 	}
 	
+	/* Entry action for state 'off'. */
+	private void entryAction_main_region_digitalWatch_alarm_off() {
+		sCIDisplay.operationCallback.refreshAlarmDisplay();
+	}
+	
+	/* Entry action for state 'on'. */
+	private void entryAction_main_region_digitalWatch_alarm_on() {
+		sCIDisplay.operationCallback.refreshAlarmDisplay();
+	}
+	
 	/* Entry action for state 'snooze'. */
 	private void entryAction_main_region_digitalWatch_alarm_alarmTriggered_on_snooze() {
 		timer.setTimer(this, 13, 60 * 1000, false);
+		
+		sCIDisplay.operationCallback.unsetIndiglo();
 	}
 	
 	/* Entry action for state 'flashing'. */
@@ -874,8 +893,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Entry action for state 'lightOff'. */
 	private void entryAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff() {
 		timer.setTimer(this, 15, 500, false);
-		
-		timer.setTimer(this, 16, 500, false);
 		
 		sCIDisplay.operationCallback.unsetIndiglo();
 		
@@ -900,6 +917,8 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Exit action for state 'blPress'. */
 	private void exitAction_main_region_digitalWatch_main_timeEdit_edit_blPress() {
 		timer.unsetTimer(this, 3);
+		
+		sCIDisplay.operationCallback.showSelection();
 	}
 	
 	/* Exit action for state 'brPress'. */
@@ -960,8 +979,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Exit action for state 'lightOff'. */
 	private void exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff() {
 		timer.unsetTimer(this, 15);
-		
-		timer.unsetTimer(this, 16);
 	}
 	
 	/* 'default' enter sequence for state digitalWatch */
@@ -993,7 +1010,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	/* 'default' enter sequence for state timeEdit */
 	private void enterSequence_main_region_digitalWatch_main_timeEdit_default() {
-		entryAction_main_region_digitalWatch_main_timeEdit();
 		enterSequence_main_region_digitalWatch_main_timeEdit_edit_default();
 		historyVector[0] = stateVector[0];
 	}
@@ -1050,14 +1066,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		entryAction_main_region_digitalWatch_main_blPressed();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_digitalWatch_main_blPressed;
-		
-		historyVector[0] = stateVector[0];
-	}
-	
-	/* 'default' enter sequence for state alarmEdit */
-	private void enterSequence_main_region_digitalWatch_main_alarmEdit_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_alarmEdit;
 		
 		historyVector[0] = stateVector[0];
 	}
@@ -1139,6 +1147,7 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	/* 'default' enter sequence for state off */
 	private void enterSequence_main_region_digitalWatch_alarm_off_default() {
+		entryAction_main_region_digitalWatch_alarm_off();
 		nextStateIndex = 4;
 		stateVector[4] = State.main_region_digitalWatch_alarm_off;
 		
@@ -1147,6 +1156,7 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	/* 'default' enter sequence for state on */
 	private void enterSequence_main_region_digitalWatch_alarm_on_default() {
+		entryAction_main_region_digitalWatch_alarm_on();
 		nextStateIndex = 4;
 		stateVector[4] = State.main_region_digitalWatch_alarm_on;
 		
@@ -1229,9 +1239,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			break;
 		case main_region_digitalWatch_main_blPressed:
 			enterSequence_main_region_digitalWatch_main_blPressed_default();
-			break;
-		case main_region_digitalWatch_main_alarmEdit:
-			enterSequence_main_region_digitalWatch_main_alarmEdit_default();
 			break;
 		default:
 			break;
@@ -1470,12 +1477,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		exitAction_main_region_digitalWatch_main_blPressed();
 	}
 	
-	/* Default exit sequence for state alarmEdit */
-	private void exitSequence_main_region_digitalWatch_main_alarmEdit() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
 	/* Default exit sequence for state running */
 	private void exitSequence_main_region_digitalWatch_time_running() {
 		nextStateIndex = 1;
@@ -1617,9 +1618,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		case main_region_digitalWatch_main_blPressed:
 			exitSequence_main_region_digitalWatch_main_blPressed();
 			break;
-		case main_region_digitalWatch_main_alarmEdit:
-			exitSequence_main_region_digitalWatch_main_alarmEdit();
-			break;
 		default:
 			break;
 		}
@@ -1715,9 +1713,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			break;
 		case main_region_digitalWatch_main_blPressed:
 			exitSequence_main_region_digitalWatch_main_blPressed();
-			break;
-		case main_region_digitalWatch_main_alarmEdit:
-			exitSequence_main_region_digitalWatch_main_alarmEdit();
 			break;
 		default:
 			break;
@@ -1969,10 +1964,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		}
 	}
 	
-	/* The reactions of state alarmEdit. */
-	private void react_main_region_digitalWatch_main_alarmEdit() {
-	}
-	
 	/* The reactions of state running. */
 	private void react_main_region_digitalWatch_time_running() {
 		if (check_main_region_digitalWatch_time_running_tr0_tr0()) {
@@ -1991,6 +1982,10 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		} else {
 			if (check_main_region_digitalWatch_time_stopped_tr1_tr1()) {
 				effect_main_region_digitalWatch_time_stopped_tr1();
+			} else {
+				if (check_main_region_digitalWatch_time_stopped_tr2_tr2()) {
+					effect_main_region_digitalWatch_time_stopped_tr2();
+				}
 			}
 		}
 	}
@@ -2104,6 +2099,10 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		} else {
 			if (check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_tr0_tr0()) {
 				effect_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_tr0();
+			} else {
+				if (check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_tr1_tr1()) {
+					effect_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn_tr1();
+				}
 			}
 		}
 	}
@@ -2115,10 +2114,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		} else {
 			if (check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr0_tr0()) {
 				effect_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr0();
-			} else {
-				if (check_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr1_tr1()) {
-					effect_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff_tr1();
-				}
 			}
 		}
 	}
@@ -2199,7 +2194,7 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		if (historyVector[4] != State.$NullState$) {
 			deepEnterSequence_main_region_digitalWatch_alarm();
 		} else {
-			enterSequence_main_region_digitalWatch_alarm_on_default();
+			enterSequence_main_region_digitalWatch_alarm_off_default();
 		}
 	}
 	
@@ -2233,9 +2228,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 				break;
 			case main_region_digitalWatch_main_blPressed:
 				react_main_region_digitalWatch_main_blPressed();
-				break;
-			case main_region_digitalWatch_main_alarmEdit:
-				react_main_region_digitalWatch_main_alarmEdit();
 				break;
 			case main_region_digitalWatch_time_running:
 				react_main_region_digitalWatch_time_running();
