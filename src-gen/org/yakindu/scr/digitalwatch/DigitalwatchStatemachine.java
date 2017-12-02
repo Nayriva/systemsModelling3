@@ -825,6 +825,8 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		timer.setTimer(this, 5, 300, false);
 		
 		sCILogicUnit.operationCallback.increaseSelection();
+		
+		sCIDisplay.operationCallback.showSelection();
 	}
 	
 	/* Entry action for state 'brPress'. */
@@ -859,6 +861,13 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Entry action for state 'brPress'. */
 	private void entryAction_main_region_digitalWatch_time_stopped_buttons_brPress() {
 		timer.setTimer(this, 10, 2 * 1000, false);
+	}
+	
+	/* Entry action for state 'chronoOff'. */
+	private void entryAction_main_region_digitalWatch_chrono_chronoOff() {
+		if (isStateActive(State.main_region_digitalWatch_main_chrono)) {
+			sCIDisplay.operationCallback.refreshChronoDisplay();
+		}
 	}
 	
 	/* Entry action for state 'chronoOn'. */
@@ -951,8 +960,6 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Exit action for state 'blPress'. */
 	private void exitAction_main_region_digitalWatch_main_edit_edit_blPress() {
 		timer.unsetTimer(this, 5);
-		
-		sCIDisplay.operationCallback.showSelection();
 	}
 	
 	/* Exit action for state 'brPress'. */
@@ -1150,6 +1157,7 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	/* 'default' enter sequence for state chronoOff */
 	private void enterSequence_main_region_digitalWatch_chrono_chronoOff_default() {
+		entryAction_main_region_digitalWatch_chrono_chronoOff();
 		nextStateIndex = 3;
 		stateVector[3] = State.main_region_digitalWatch_chrono_chronoOff;
 		
