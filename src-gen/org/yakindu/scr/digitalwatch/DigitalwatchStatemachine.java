@@ -106,23 +106,27 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		main_region_digitalWatch,
 		main_region_digitalWatch_main_chrono,
 		main_region_digitalWatch_main_time,
-		main_region_digitalWatch_main_timeEdit,
-		main_region_digitalWatch_main_timeEdit_edit_selection,
-		main_region_digitalWatch_main_timeEdit_edit_selection_flash_on,
-		main_region_digitalWatch_main_timeEdit_edit_selection_flash_off,
-		main_region_digitalWatch_main_timeEdit_edit_blPress,
-		main_region_digitalWatch_main_timeEdit_edit_brPress,
-		main_region_digitalWatch_main_brPressed,
-		main_region_digitalWatch_main_blPressed,
+		main_region_digitalWatch_main_time_buttons_noButton,
+		main_region_digitalWatch_main_time_buttons_blPress,
+		main_region_digitalWatch_main_time_buttons_brPress,
+		main_region_digitalWatch_main_edit,
+		main_region_digitalWatch_main_edit_edit_selection,
+		main_region_digitalWatch_main_edit_edit_selection_flash_on,
+		main_region_digitalWatch_main_edit_edit_selection_flash_off,
+		main_region_digitalWatch_main_edit_edit_blPress,
+		main_region_digitalWatch_main_edit_edit_brPress,
 		main_region_digitalWatch_time_running,
+		main_region_digitalWatch_time_running_buttons_brPress,
+		main_region_digitalWatch_time_running_buttons_noButton,
 		main_region_digitalWatch_time_stopped,
-		main_region_digitalWatch_time_brPressed,
-		main_region_digitalWatch_time_brPress,
+		main_region_digitalWatch_time_stopped_buttons_noButton,
+		main_region_digitalWatch_time_stopped_buttons_brPress,
 		main_region_digitalWatch_chrono_chronoOff,
 		main_region_digitalWatch_chrono_chronoOn,
 		main_region_digitalWatch_light_lightOff,
 		main_region_digitalWatch_light_lightOn,
-		main_region_digitalWatch_light_trReleased,
+		main_region_digitalWatch_light_lightOn_buttons_noButton,
+		main_region_digitalWatch_light_lightOn_buttons_trPress,
 		main_region_digitalWatch_alarm_off,
 		main_region_digitalWatch_alarm_on,
 		main_region_digitalWatch_alarm_alarmTriggered,
@@ -244,33 +248,42 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		case main_region_digitalWatch_main_chrono:
 			return stateVector[0] == State.main_region_digitalWatch_main_chrono;
 		case main_region_digitalWatch_main_time:
-			return stateVector[0] == State.main_region_digitalWatch_main_time;
-		case main_region_digitalWatch_main_timeEdit:
 			return stateVector[0].ordinal() >= State.
-					main_region_digitalWatch_main_timeEdit.ordinal()&& stateVector[0].ordinal() <= State.main_region_digitalWatch_main_timeEdit_edit_brPress.ordinal();
-		case main_region_digitalWatch_main_timeEdit_edit_selection:
+					main_region_digitalWatch_main_time.ordinal()&& stateVector[0].ordinal() <= State.main_region_digitalWatch_main_time_buttons_brPress.ordinal();
+		case main_region_digitalWatch_main_time_buttons_noButton:
+			return stateVector[0] == State.main_region_digitalWatch_main_time_buttons_noButton;
+		case main_region_digitalWatch_main_time_buttons_blPress:
+			return stateVector[0] == State.main_region_digitalWatch_main_time_buttons_blPress;
+		case main_region_digitalWatch_main_time_buttons_brPress:
+			return stateVector[0] == State.main_region_digitalWatch_main_time_buttons_brPress;
+		case main_region_digitalWatch_main_edit:
 			return stateVector[0].ordinal() >= State.
-					main_region_digitalWatch_main_timeEdit_edit_selection.ordinal()&& stateVector[0].ordinal() <= State.main_region_digitalWatch_main_timeEdit_edit_selection_flash_off.ordinal();
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-			return stateVector[0] == State.main_region_digitalWatch_main_timeEdit_edit_selection_flash_on;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-			return stateVector[0] == State.main_region_digitalWatch_main_timeEdit_edit_selection_flash_off;
-		case main_region_digitalWatch_main_timeEdit_edit_blPress:
-			return stateVector[0] == State.main_region_digitalWatch_main_timeEdit_edit_blPress;
-		case main_region_digitalWatch_main_timeEdit_edit_brPress:
-			return stateVector[0] == State.main_region_digitalWatch_main_timeEdit_edit_brPress;
-		case main_region_digitalWatch_main_brPressed:
-			return stateVector[0] == State.main_region_digitalWatch_main_brPressed;
-		case main_region_digitalWatch_main_blPressed:
-			return stateVector[0] == State.main_region_digitalWatch_main_blPressed;
+					main_region_digitalWatch_main_edit.ordinal()&& stateVector[0].ordinal() <= State.main_region_digitalWatch_main_edit_edit_brPress.ordinal();
+		case main_region_digitalWatch_main_edit_edit_selection:
+			return stateVector[0].ordinal() >= State.
+					main_region_digitalWatch_main_edit_edit_selection.ordinal()&& stateVector[0].ordinal() <= State.main_region_digitalWatch_main_edit_edit_selection_flash_off.ordinal();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_on:
+			return stateVector[0] == State.main_region_digitalWatch_main_edit_edit_selection_flash_on;
+		case main_region_digitalWatch_main_edit_edit_selection_flash_off:
+			return stateVector[0] == State.main_region_digitalWatch_main_edit_edit_selection_flash_off;
+		case main_region_digitalWatch_main_edit_edit_blPress:
+			return stateVector[0] == State.main_region_digitalWatch_main_edit_edit_blPress;
+		case main_region_digitalWatch_main_edit_edit_brPress:
+			return stateVector[0] == State.main_region_digitalWatch_main_edit_edit_brPress;
 		case main_region_digitalWatch_time_running:
-			return stateVector[1] == State.main_region_digitalWatch_time_running;
+			return stateVector[1].ordinal() >= State.
+					main_region_digitalWatch_time_running.ordinal()&& stateVector[1].ordinal() <= State.main_region_digitalWatch_time_running_buttons_noButton.ordinal();
+		case main_region_digitalWatch_time_running_buttons_brPress:
+			return stateVector[1] == State.main_region_digitalWatch_time_running_buttons_brPress;
+		case main_region_digitalWatch_time_running_buttons_noButton:
+			return stateVector[1] == State.main_region_digitalWatch_time_running_buttons_noButton;
 		case main_region_digitalWatch_time_stopped:
-			return stateVector[1] == State.main_region_digitalWatch_time_stopped;
-		case main_region_digitalWatch_time_brPressed:
-			return stateVector[1] == State.main_region_digitalWatch_time_brPressed;
-		case main_region_digitalWatch_time_brPress:
-			return stateVector[1] == State.main_region_digitalWatch_time_brPress;
+			return stateVector[1].ordinal() >= State.
+					main_region_digitalWatch_time_stopped.ordinal()&& stateVector[1].ordinal() <= State.main_region_digitalWatch_time_stopped_buttons_brPress.ordinal();
+		case main_region_digitalWatch_time_stopped_buttons_noButton:
+			return stateVector[1] == State.main_region_digitalWatch_time_stopped_buttons_noButton;
+		case main_region_digitalWatch_time_stopped_buttons_brPress:
+			return stateVector[1] == State.main_region_digitalWatch_time_stopped_buttons_brPress;
 		case main_region_digitalWatch_chrono_chronoOff:
 			return stateVector[2] == State.main_region_digitalWatch_chrono_chronoOff;
 		case main_region_digitalWatch_chrono_chronoOn:
@@ -278,9 +291,12 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		case main_region_digitalWatch_light_lightOff:
 			return stateVector[3] == State.main_region_digitalWatch_light_lightOff;
 		case main_region_digitalWatch_light_lightOn:
-			return stateVector[3] == State.main_region_digitalWatch_light_lightOn;
-		case main_region_digitalWatch_light_trReleased:
-			return stateVector[3] == State.main_region_digitalWatch_light_trReleased;
+			return stateVector[3].ordinal() >= State.
+					main_region_digitalWatch_light_lightOn.ordinal()&& stateVector[3].ordinal() <= State.main_region_digitalWatch_light_lightOn_buttons_trPress.ordinal();
+		case main_region_digitalWatch_light_lightOn_buttons_noButton:
+			return stateVector[3] == State.main_region_digitalWatch_light_lightOn_buttons_noButton;
+		case main_region_digitalWatch_light_lightOn_buttons_trPress:
+			return stateVector[3] == State.main_region_digitalWatch_light_lightOn_buttons_trPress;
 		case main_region_digitalWatch_alarm_off:
 			return stateVector[4] == State.main_region_digitalWatch_alarm_off;
 		case main_region_digitalWatch_alarm_on:
@@ -346,63 +362,63 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		return sCIButtons.topLeftPressed;
 	}
 	
-	private boolean check_main_region_digitalWatch_main_time_tr1_tr1() {
-		return sCIButtons.bottomRightPressed;
-	}
-	
-	private boolean check_main_region_digitalWatch_main_time_tr2_tr2() {
+	private boolean check_main_region_digitalWatch_main_time_buttons_noButton_tr0_tr0() {
 		return sCIButtons.bottomLeftPressed;
 	}
 	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_selection_tr0_tr0() {
-		return sCIButtons.bottomLeftPressed;
-	}
-	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_selection_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_main_time_buttons_noButton_tr1_tr1() {
 		return sCIButtons.bottomRightPressed;
 	}
 	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_selection_tr2_tr2() {
+	private boolean check_main_region_digitalWatch_main_time_buttons_blPress_tr0_tr0() {
+		return sCIButtons.bottomLeftReleased;
+	}
+	
+	private boolean check_main_region_digitalWatch_main_time_buttons_blPress_tr1_tr1() {
 		return timeEvents[0];
 	}
 	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_tr0_tr0() {
+	private boolean check_main_region_digitalWatch_main_time_buttons_brPress_tr0_tr0() {
+		return sCIButtons.bottomRightReleased;
+	}
+	
+	private boolean check_main_region_digitalWatch_main_time_buttons_brPress_tr1_tr1() {
 		return timeEvents[1];
 	}
 	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off_tr0_tr0() {
+	private boolean check_main_region_digitalWatch_main_edit_edit_selection_tr0_tr0() {
+		return sCIButtons.bottomLeftPressed;
+	}
+	
+	private boolean check_main_region_digitalWatch_main_edit_edit_selection_tr1_tr1() {
+		return sCIButtons.bottomRightPressed;
+	}
+	
+	private boolean check_main_region_digitalWatch_main_edit_edit_selection_tr2_tr2() {
 		return timeEvents[2];
 	}
 	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_blPress_tr0_tr0() {
-		return sCIButtons.bottomLeftReleased;
-	}
-	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_blPress_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_main_edit_edit_selection_flash_on_tr0_tr0() {
 		return timeEvents[3];
 	}
 	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_brPress_tr0_tr0() {
-		return sCIButtons.bottomRightReleased;
-	}
-	
-	private boolean check_main_region_digitalWatch_main_timeEdit_edit_brPress_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_main_edit_edit_selection_flash_off_tr0_tr0() {
 		return timeEvents[4];
 	}
 	
-	private boolean check_main_region_digitalWatch_main_brPressed_tr0_tr0() {
-		return timeEvents[5];
-	}
-	
-	private boolean check_main_region_digitalWatch_main_brPressed_tr1_tr1() {
-		return sCIButtons.bottomRightReleased;
-	}
-	
-	private boolean check_main_region_digitalWatch_main_blPressed_tr0_tr0() {
+	private boolean check_main_region_digitalWatch_main_edit_edit_blPress_tr0_tr0() {
 		return sCIButtons.bottomLeftReleased;
 	}
 	
-	private boolean check_main_region_digitalWatch_main_blPressed_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_main_edit_edit_blPress_tr1_tr1() {
+		return timeEvents[5];
+	}
+	
+	private boolean check_main_region_digitalWatch_main_edit_edit_brPress_tr0_tr0() {
+		return sCIButtons.bottomRightReleased;
+	}
+	
+	private boolean check_main_region_digitalWatch_main_edit_edit_brPress_tr1_tr1() {
 		return timeEvents[6];
 	}
 	
@@ -410,35 +426,35 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		return timeEvents[7];
 	}
 	
-	private boolean check_main_region_digitalWatch_time_running_tr1_tr1() {
-		return (sCIButtons.bottomRightPressed) && (isStateActive(State.main_region_digitalWatch_main_brPressed));
+	private boolean check_main_region_digitalWatch_time_running_buttons_brPress_tr0_tr0() {
+		return sCIButtons.bottomRightReleased;
 	}
 	
-	private boolean check_main_region_digitalWatch_time_stopped_tr0_tr0() {
-		return sCIButtons.bottomRightPressed;
-	}
-	
-	private boolean check_main_region_digitalWatch_time_stopped_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_time_running_buttons_brPress_tr1_tr1() {
 		return timeEvents[8];
 	}
 	
-	private boolean check_main_region_digitalWatch_time_stopped_tr2_tr2() {
-		return sCIButtons.bottomLeftPressed;
+	private boolean check_main_region_digitalWatch_time_running_buttons_noButton_tr0_tr0() {
+		return sCIButtons.bottomRightPressed;
 	}
 	
-	private boolean check_main_region_digitalWatch_time_brPressed_tr0_tr0() {
-		return sCIButtons.bottomRightReleased;
+	private boolean check_main_region_digitalWatch_time_stopped_buttons_noButton_tr0_tr0() {
+		return sCIButtons.bottomRightPressed;
 	}
 	
-	private boolean check_main_region_digitalWatch_time_brPressed_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_time_stopped_buttons_noButton_tr1_tr1() {
 		return timeEvents[9];
 	}
 	
-	private boolean check_main_region_digitalWatch_time_brPress_tr0_tr0() {
+	private boolean check_main_region_digitalWatch_time_stopped_buttons_noButton_tr2_tr2() {
+		return sCIButtons.bottomLeftPressed;
+	}
+	
+	private boolean check_main_region_digitalWatch_time_stopped_buttons_brPress_tr0_tr0() {
 		return sCIButtons.bottomRightReleased;
 	}
 	
-	private boolean check_main_region_digitalWatch_time_brPress_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_time_stopped_buttons_brPress_tr1_tr1() {
 		return timeEvents[10];
 	}
 	
@@ -466,24 +482,24 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		return sCIButtons.topRightPressed;
 	}
 	
-	private boolean check_main_region_digitalWatch_light_lightOn_tr0_tr0() {
-		return sCIButtons.topRightReleased;
-	}
-	
-	private boolean check_main_region_digitalWatch_light_trReleased_tr0_tr0() {
+	private boolean check_main_region_digitalWatch_light_lightOn_buttons_noButton_tr0_tr0() {
 		return sCIButtons.topRightPressed;
 	}
 	
-	private boolean check_main_region_digitalWatch_light_trReleased_tr1_tr1() {
+	private boolean check_main_region_digitalWatch_light_lightOn_buttons_noButton_tr1_tr1() {
 		return timeEvents[12];
 	}
 	
+	private boolean check_main_region_digitalWatch_light_lightOn_buttons_trPress_tr0_tr0() {
+		return sCIButtons.topRightReleased;
+	}
+	
 	private boolean check_main_region_digitalWatch_alarm_off_tr0_tr0() {
-		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_blPressed));
+		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_time));
 	}
 	
 	private boolean check_main_region_digitalWatch_alarm_on_tr0_tr0() {
-		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_blPressed));
+		return (sCIButtons.bottomLeftPressed) && (isStateActive(State.main_region_digitalWatch_main_time));
 	}
 	
 	private boolean check_main_region_digitalWatch_alarm_on_tr1_tr1() {
@@ -524,83 +540,83 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		enterSequence_main_region_digitalWatch_main_chrono_default();
 	}
 	
-	private void effect_main_region_digitalWatch_main_time_tr1() {
+	private void effect_main_region_digitalWatch_main_time_buttons_noButton_tr0() {
+		exitSequence_main_region_digitalWatch_main_time_buttons_noButton();
+		enterSequence_main_region_digitalWatch_main_time_buttons_blPress_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_time_buttons_noButton_tr1() {
+		exitSequence_main_region_digitalWatch_main_time_buttons_noButton();
+		enterSequence_main_region_digitalWatch_main_time_buttons_brPress_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_time_buttons_blPress_tr0() {
+		exitSequence_main_region_digitalWatch_main_time_buttons_blPress();
+		enterSequence_main_region_digitalWatch_main_time_buttons_noButton_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_time_buttons_blPress_tr1() {
 		exitSequence_main_region_digitalWatch_main_time();
-		enterSequence_main_region_digitalWatch_main_brPressed_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_time_tr2() {
-		exitSequence_main_region_digitalWatch_main_time();
-		enterSequence_main_region_digitalWatch_main_blPressed_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr0() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_blPress_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr1() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_brPress_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr2() {
-		exitSequence_main_region_digitalWatch_main_timeEdit();
-		enterSequence_main_region_digitalWatch_main_time_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_tr0() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off_tr0() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_blPress_tr0() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_blPress();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_blPress_tr1() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_blPress();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_blPress_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_brPress_tr0() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_brPress();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_timeEdit_edit_brPress_tr1() {
-		exitSequence_main_region_digitalWatch_main_timeEdit();
-		enterSequence_main_region_digitalWatch_main_time_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_brPressed_tr0() {
-		exitSequence_main_region_digitalWatch_main_brPressed();
-		sCILogicUnit.operationCallback.startTimeEditMode();
-		
-		enterSequence_main_region_digitalWatch_main_timeEdit_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_brPressed_tr1() {
-		exitSequence_main_region_digitalWatch_main_brPressed();
-		enterSequence_main_region_digitalWatch_main_time_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_blPressed_tr0() {
-		exitSequence_main_region_digitalWatch_main_blPressed();
-		enterSequence_main_region_digitalWatch_main_time_default();
-	}
-	
-	private void effect_main_region_digitalWatch_main_blPressed_tr1() {
-		exitSequence_main_region_digitalWatch_main_blPressed();
 		sCILogicUnit.operationCallback.startAlarmEditMode();
 		
-		enterSequence_main_region_digitalWatch_main_timeEdit_default();
+		enterSequence_main_region_digitalWatch_main_edit_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_time_buttons_brPress_tr0() {
+		exitSequence_main_region_digitalWatch_main_time_buttons_brPress();
+		enterSequence_main_region_digitalWatch_main_time_buttons_noButton_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_time_buttons_brPress_tr1() {
+		exitSequence_main_region_digitalWatch_main_time();
+		sCILogicUnit.operationCallback.startTimeEditMode();
+		
+		enterSequence_main_region_digitalWatch_main_edit_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_selection_tr0() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_selection();
+		enterSequence_main_region_digitalWatch_main_edit_edit_blPress_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_selection_tr1() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_selection();
+		enterSequence_main_region_digitalWatch_main_edit_edit_brPress_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_selection_tr2() {
+		exitSequence_main_region_digitalWatch_main_edit();
+		enterSequence_main_region_digitalWatch_main_time_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_selection_flash_on_tr0() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on();
+		enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_selection_flash_off_tr0() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off();
+		enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_blPress_tr0() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_blPress();
+		enterSequence_main_region_digitalWatch_main_edit_edit_selection_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_blPress_tr1() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_blPress();
+		enterSequence_main_region_digitalWatch_main_edit_edit_blPress_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_brPress_tr0() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_brPress();
+		enterSequence_main_region_digitalWatch_main_edit_edit_selection_default();
+	}
+	
+	private void effect_main_region_digitalWatch_main_edit_edit_brPress_tr1() {
+		exitSequence_main_region_digitalWatch_main_edit();
+		enterSequence_main_region_digitalWatch_main_time_default();
 	}
 	
 	private void effect_main_region_digitalWatch_time_running_tr0() {
@@ -610,43 +626,43 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		enterSequence_main_region_digitalWatch_time_running_default();
 	}
 	
-	private void effect_main_region_digitalWatch_time_running_tr1() {
+	private void effect_main_region_digitalWatch_time_running_buttons_brPress_tr0() {
+		exitSequence_main_region_digitalWatch_time_running_buttons_brPress();
+		enterSequence_main_region_digitalWatch_time_running_buttons_noButton_default();
+	}
+	
+	private void effect_main_region_digitalWatch_time_running_buttons_brPress_tr1() {
 		exitSequence_main_region_digitalWatch_time_running();
-		enterSequence_main_region_digitalWatch_time_brPressed_default();
+		enterSequence_main_region_digitalWatch_time_stopped_default();
 	}
 	
-	private void effect_main_region_digitalWatch_time_stopped_tr0() {
-		exitSequence_main_region_digitalWatch_time_stopped();
-		enterSequence_main_region_digitalWatch_time_brPress_default();
+	private void effect_main_region_digitalWatch_time_running_buttons_noButton_tr0() {
+		exitSequence_main_region_digitalWatch_time_running_buttons_noButton();
+		enterSequence_main_region_digitalWatch_time_running_buttons_brPress_default();
 	}
 	
-	private void effect_main_region_digitalWatch_time_stopped_tr1() {
+	private void effect_main_region_digitalWatch_time_stopped_buttons_noButton_tr0() {
+		exitSequence_main_region_digitalWatch_time_stopped_buttons_noButton();
+		enterSequence_main_region_digitalWatch_time_stopped_buttons_brPress_default();
+	}
+	
+	private void effect_main_region_digitalWatch_time_stopped_buttons_noButton_tr1() {
 		exitSequence_main_region_digitalWatch_time_stopped();
 		enterSequence_main_region_digitalWatch_time_running_default();
 	}
 	
-	private void effect_main_region_digitalWatch_time_stopped_tr2() {
+	private void effect_main_region_digitalWatch_time_stopped_buttons_noButton_tr2() {
+		exitSequence_main_region_digitalWatch_time_stopped_buttons_noButton();
+		enterSequence_main_region_digitalWatch_time_stopped_buttons_noButton_default();
+	}
+	
+	private void effect_main_region_digitalWatch_time_stopped_buttons_brPress_tr0() {
+		exitSequence_main_region_digitalWatch_time_stopped_buttons_brPress();
+		enterSequence_main_region_digitalWatch_time_stopped_buttons_noButton_default();
+	}
+	
+	private void effect_main_region_digitalWatch_time_stopped_buttons_brPress_tr1() {
 		exitSequence_main_region_digitalWatch_time_stopped();
-		enterSequence_main_region_digitalWatch_time_stopped_default();
-	}
-	
-	private void effect_main_region_digitalWatch_time_brPressed_tr0() {
-		exitSequence_main_region_digitalWatch_time_brPressed();
-		enterSequence_main_region_digitalWatch_time_running_default();
-	}
-	
-	private void effect_main_region_digitalWatch_time_brPressed_tr1() {
-		exitSequence_main_region_digitalWatch_time_brPressed();
-		enterSequence_main_region_digitalWatch_time_stopped_default();
-	}
-	
-	private void effect_main_region_digitalWatch_time_brPress_tr0() {
-		exitSequence_main_region_digitalWatch_time_brPress();
-		enterSequence_main_region_digitalWatch_time_stopped_default();
-	}
-	
-	private void effect_main_region_digitalWatch_time_brPress_tr1() {
-		exitSequence_main_region_digitalWatch_time_brPress();
 		enterSequence_main_region_digitalWatch_time_running_default();
 	}
 	
@@ -686,19 +702,19 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		enterSequence_main_region_digitalWatch_light_lightOn_default();
 	}
 	
-	private void effect_main_region_digitalWatch_light_lightOn_tr0() {
+	private void effect_main_region_digitalWatch_light_lightOn_buttons_noButton_tr0() {
+		exitSequence_main_region_digitalWatch_light_lightOn_buttons_noButton();
+		enterSequence_main_region_digitalWatch_light_lightOn_buttons_trPress_default();
+	}
+	
+	private void effect_main_region_digitalWatch_light_lightOn_buttons_noButton_tr1() {
 		exitSequence_main_region_digitalWatch_light_lightOn();
-		enterSequence_main_region_digitalWatch_light_trReleased_default();
-	}
-	
-	private void effect_main_region_digitalWatch_light_trReleased_tr0() {
-		exitSequence_main_region_digitalWatch_light_trReleased();
-		enterSequence_main_region_digitalWatch_light_lightOn_default();
-	}
-	
-	private void effect_main_region_digitalWatch_light_trReleased_tr1() {
-		exitSequence_main_region_digitalWatch_light_trReleased();
 		enterSequence_main_region_digitalWatch_light_lightOff_default();
+	}
+	
+	private void effect_main_region_digitalWatch_light_lightOn_buttons_trPress_tr0() {
+		exitSequence_main_region_digitalWatch_light_lightOn_buttons_trPress();
+		enterSequence_main_region_digitalWatch_light_lightOn_buttons_noButton_default();
 	}
 	
 	private void effect_main_region_digitalWatch_alarm_off_tr0() {
@@ -758,49 +774,49 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		sCIDisplay.operationCallback.refreshTimeDisplay();
 	}
 	
+	/* Entry action for state 'blPress'. */
+	private void entryAction_main_region_digitalWatch_main_time_buttons_blPress() {
+		timer.setTimer(this, 0, 1500, false);
+		
+		sCILogicUnit.operationCallback.setAlarm();
+	}
+	
+	/* Entry action for state 'brPress'. */
+	private void entryAction_main_region_digitalWatch_main_time_buttons_brPress() {
+		timer.setTimer(this, 1, 1500, false);
+	}
+	
 	/* Entry action for state 'selection'. */
-	private void entryAction_main_region_digitalWatch_main_timeEdit_edit_selection() {
-		timer.setTimer(this, 0, 5 * 1000, false);
+	private void entryAction_main_region_digitalWatch_main_edit_edit_selection() {
+		timer.setTimer(this, 2, 5 * 1000, false);
 	}
 	
 	/* Entry action for state 'on'. */
-	private void entryAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on() {
-		timer.setTimer(this, 1, 500, false);
+	private void entryAction_main_region_digitalWatch_main_edit_edit_selection_flash_on() {
+		timer.setTimer(this, 3, 500, false);
 		
 		sCIDisplay.operationCallback.showSelection();
 	}
 	
 	/* Entry action for state 'off'. */
-	private void entryAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off() {
-		timer.setTimer(this, 2, 500, false);
+	private void entryAction_main_region_digitalWatch_main_edit_edit_selection_flash_off() {
+		timer.setTimer(this, 4, 500, false);
 		
 		sCIDisplay.operationCallback.hideSelection();
 	}
 	
 	/* Entry action for state 'blPress'. */
-	private void entryAction_main_region_digitalWatch_main_timeEdit_edit_blPress() {
-		timer.setTimer(this, 3, 300, false);
+	private void entryAction_main_region_digitalWatch_main_edit_edit_blPress() {
+		timer.setTimer(this, 5, 300, false);
 		
 		sCILogicUnit.operationCallback.increaseSelection();
 	}
 	
 	/* Entry action for state 'brPress'. */
-	private void entryAction_main_region_digitalWatch_main_timeEdit_edit_brPress() {
-		timer.setTimer(this, 4, 2 * 1000, false);
+	private void entryAction_main_region_digitalWatch_main_edit_edit_brPress() {
+		timer.setTimer(this, 6, 2 * 1000, false);
 		
 		sCILogicUnit.operationCallback.selectNext();
-	}
-	
-	/* Entry action for state 'brPressed'. */
-	private void entryAction_main_region_digitalWatch_main_brPressed() {
-		timer.setTimer(this, 5, 1500, false);
-	}
-	
-	/* Entry action for state 'blPressed'. */
-	private void entryAction_main_region_digitalWatch_main_blPressed() {
-		timer.setTimer(this, 6, 1500, false);
-		
-		sCILogicUnit.operationCallback.setAlarm();
 	}
 	
 	/* Entry action for state 'running'. */
@@ -815,31 +831,24 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		}
 	}
 	
-	/* Entry action for state 'stopped'. */
-	private void entryAction_main_region_digitalWatch_time_stopped() {
-		timer.setTimer(this, 8, 5 * 1000, false);
+	/* Entry action for state 'brPress'. */
+	private void entryAction_main_region_digitalWatch_time_running_buttons_brPress() {
+		timer.setTimer(this, 8, 1500, false);
 	}
 	
-	/* Entry action for state 'brPressed'. */
-	private void entryAction_main_region_digitalWatch_time_brPressed() {
-		timer.setTimer(this, 9, 1500, false);
+	/* Entry action for state 'noButton'. */
+	private void entryAction_main_region_digitalWatch_time_stopped_buttons_noButton() {
+		timer.setTimer(this, 9, 5 * 1000, false);
 	}
 	
 	/* Entry action for state 'brPress'. */
-	private void entryAction_main_region_digitalWatch_time_brPress() {
+	private void entryAction_main_region_digitalWatch_time_stopped_buttons_brPress() {
 		timer.setTimer(this, 10, 2 * 1000, false);
-	}
-	
-	/* Entry action for state 'chronoOff'. */
-	private void entryAction_main_region_digitalWatch_chrono_chronoOff() {
-		if (isStateActive(State.main_region_digitalWatch_main_chrono)) {
-			sCIDisplay.operationCallback.refreshChronoDisplay();
-		}
 	}
 	
 	/* Entry action for state 'chronoOn'. */
 	private void entryAction_main_region_digitalWatch_chrono_chronoOn() {
-		timer.setTimer(this, 11, 250, false);
+		timer.setTimer(this, 11, 10, false);
 		
 		if (isStateActive(State.main_region_digitalWatch_main_chrono)) {
 			sCIDisplay.operationCallback.refreshChronoDisplay();
@@ -856,8 +865,8 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		sCIDisplay.operationCallback.setIndiglo();
 	}
 	
-	/* Entry action for state 'trReleased'. */
-	private void entryAction_main_region_digitalWatch_light_trReleased() {
+	/* Entry action for state 'noButton'. */
+	private void entryAction_main_region_digitalWatch_light_lightOn_buttons_noButton() {
 		timer.setTimer(this, 12, 2 * 1000, false);
 	}
 	
@@ -899,40 +908,40 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		setFlash(flash + 1);
 	}
 	
-	/* Exit action for state 'selection'. */
-	private void exitAction_main_region_digitalWatch_main_timeEdit_edit_selection() {
+	/* Exit action for state 'blPress'. */
+	private void exitAction_main_region_digitalWatch_main_time_buttons_blPress() {
 		timer.unsetTimer(this, 0);
 	}
 	
-	/* Exit action for state 'on'. */
-	private void exitAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on() {
+	/* Exit action for state 'brPress'. */
+	private void exitAction_main_region_digitalWatch_main_time_buttons_brPress() {
 		timer.unsetTimer(this, 1);
 	}
 	
-	/* Exit action for state 'off'. */
-	private void exitAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off() {
+	/* Exit action for state 'selection'. */
+	private void exitAction_main_region_digitalWatch_main_edit_edit_selection() {
 		timer.unsetTimer(this, 2);
 	}
 	
-	/* Exit action for state 'blPress'. */
-	private void exitAction_main_region_digitalWatch_main_timeEdit_edit_blPress() {
+	/* Exit action for state 'on'. */
+	private void exitAction_main_region_digitalWatch_main_edit_edit_selection_flash_on() {
 		timer.unsetTimer(this, 3);
+	}
+	
+	/* Exit action for state 'off'. */
+	private void exitAction_main_region_digitalWatch_main_edit_edit_selection_flash_off() {
+		timer.unsetTimer(this, 4);
+	}
+	
+	/* Exit action for state 'blPress'. */
+	private void exitAction_main_region_digitalWatch_main_edit_edit_blPress() {
+		timer.unsetTimer(this, 5);
 		
 		sCIDisplay.operationCallback.showSelection();
 	}
 	
 	/* Exit action for state 'brPress'. */
-	private void exitAction_main_region_digitalWatch_main_timeEdit_edit_brPress() {
-		timer.unsetTimer(this, 4);
-	}
-	
-	/* Exit action for state 'brPressed'. */
-	private void exitAction_main_region_digitalWatch_main_brPressed() {
-		timer.unsetTimer(this, 5);
-	}
-	
-	/* Exit action for state 'blPressed'. */
-	private void exitAction_main_region_digitalWatch_main_blPressed() {
+	private void exitAction_main_region_digitalWatch_main_edit_edit_brPress() {
 		timer.unsetTimer(this, 6);
 	}
 	
@@ -941,18 +950,18 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		timer.unsetTimer(this, 7);
 	}
 	
-	/* Exit action for state 'stopped'. */
-	private void exitAction_main_region_digitalWatch_time_stopped() {
+	/* Exit action for state 'brPress'. */
+	private void exitAction_main_region_digitalWatch_time_running_buttons_brPress() {
 		timer.unsetTimer(this, 8);
 	}
 	
-	/* Exit action for state 'brPressed'. */
-	private void exitAction_main_region_digitalWatch_time_brPressed() {
+	/* Exit action for state 'noButton'. */
+	private void exitAction_main_region_digitalWatch_time_stopped_buttons_noButton() {
 		timer.unsetTimer(this, 9);
 	}
 	
 	/* Exit action for state 'brPress'. */
-	private void exitAction_main_region_digitalWatch_time_brPress() {
+	private void exitAction_main_region_digitalWatch_time_stopped_buttons_brPress() {
 		timer.unsetTimer(this, 10);
 	}
 	
@@ -961,14 +970,19 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		timer.unsetTimer(this, 11);
 	}
 	
-	/* Exit action for state 'trReleased'. */
-	private void exitAction_main_region_digitalWatch_light_trReleased() {
+	/* Exit action for state 'noButton'. */
+	private void exitAction_main_region_digitalWatch_light_lightOn_buttons_noButton() {
 		timer.unsetTimer(this, 12);
 	}
 	
 	/* Exit action for state 'snooze'. */
 	private void exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_snooze() {
 		timer.unsetTimer(this, 13);
+	}
+	
+	/* Exit action for state 'flashing'. */
+	private void exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing() {
+		sCIDisplay.operationCallback.unsetIndiglo();
 	}
 	
 	/* Exit action for state 'lightOn'. */
@@ -995,120 +1009,123 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		entryAction_main_region_digitalWatch_main_chrono();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_digitalWatch_main_chrono;
-		
-		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state time */
 	private void enterSequence_main_region_digitalWatch_main_time_default() {
 		entryAction_main_region_digitalWatch_main_time();
+		enterSequence_main_region_digitalWatch_main_time_buttons_default();
+	}
+	
+	/* 'default' enter sequence for state noButton */
+	private void enterSequence_main_region_digitalWatch_main_time_buttons_noButton_default() {
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_time;
-		
-		historyVector[0] = stateVector[0];
-	}
-	
-	/* 'default' enter sequence for state timeEdit */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_default() {
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_default();
-		historyVector[0] = stateVector[0];
-	}
-	
-	/* 'default' enter sequence for state selection */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_default() {
-		entryAction_main_region_digitalWatch_main_timeEdit_edit_selection();
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_default();
-	}
-	
-	/* 'default' enter sequence for state on */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_default() {
-		entryAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_timeEdit_edit_selection_flash_on;
-		
-		historyVector[1] = stateVector[0];
-	}
-	
-	/* 'default' enter sequence for state off */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off_default() {
-		entryAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_timeEdit_edit_selection_flash_off;
-		
-		historyVector[1] = stateVector[0];
+		stateVector[0] = State.main_region_digitalWatch_main_time_buttons_noButton;
 	}
 	
 	/* 'default' enter sequence for state blPress */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_edit_blPress_default() {
-		entryAction_main_region_digitalWatch_main_timeEdit_edit_blPress();
+	private void enterSequence_main_region_digitalWatch_main_time_buttons_blPress_default() {
+		entryAction_main_region_digitalWatch_main_time_buttons_blPress();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_timeEdit_edit_blPress;
+		stateVector[0] = State.main_region_digitalWatch_main_time_buttons_blPress;
 	}
 	
 	/* 'default' enter sequence for state brPress */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_edit_brPress_default() {
-		entryAction_main_region_digitalWatch_main_timeEdit_edit_brPress();
+	private void enterSequence_main_region_digitalWatch_main_time_buttons_brPress_default() {
+		entryAction_main_region_digitalWatch_main_time_buttons_brPress();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_timeEdit_edit_brPress;
+		stateVector[0] = State.main_region_digitalWatch_main_time_buttons_brPress;
 	}
 	
-	/* 'default' enter sequence for state brPressed */
-	private void enterSequence_main_region_digitalWatch_main_brPressed_default() {
-		entryAction_main_region_digitalWatch_main_brPressed();
+	/* 'default' enter sequence for state edit */
+	private void enterSequence_main_region_digitalWatch_main_edit_default() {
+		enterSequence_main_region_digitalWatch_main_edit_edit_default();
+	}
+	
+	/* 'default' enter sequence for state selection */
+	private void enterSequence_main_region_digitalWatch_main_edit_edit_selection_default() {
+		entryAction_main_region_digitalWatch_main_edit_edit_selection();
+		enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_default();
+	}
+	
+	/* 'default' enter sequence for state on */
+	private void enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on_default() {
+		entryAction_main_region_digitalWatch_main_edit_edit_selection_flash_on();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_brPressed;
+		stateVector[0] = State.main_region_digitalWatch_main_edit_edit_selection_flash_on;
 		
 		historyVector[0] = stateVector[0];
 	}
 	
-	/* 'default' enter sequence for state blPressed */
-	private void enterSequence_main_region_digitalWatch_main_blPressed_default() {
-		entryAction_main_region_digitalWatch_main_blPressed();
+	/* 'default' enter sequence for state off */
+	private void enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off_default() {
+		entryAction_main_region_digitalWatch_main_edit_edit_selection_flash_off();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_digitalWatch_main_blPressed;
+		stateVector[0] = State.main_region_digitalWatch_main_edit_edit_selection_flash_off;
 		
 		historyVector[0] = stateVector[0];
+	}
+	
+	/* 'default' enter sequence for state blPress */
+	private void enterSequence_main_region_digitalWatch_main_edit_edit_blPress_default() {
+		entryAction_main_region_digitalWatch_main_edit_edit_blPress();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_digitalWatch_main_edit_edit_blPress;
+	}
+	
+	/* 'default' enter sequence for state brPress */
+	private void enterSequence_main_region_digitalWatch_main_edit_edit_brPress_default() {
+		entryAction_main_region_digitalWatch_main_edit_edit_brPress();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_digitalWatch_main_edit_edit_brPress;
 	}
 	
 	/* 'default' enter sequence for state running */
 	private void enterSequence_main_region_digitalWatch_time_running_default() {
 		entryAction_main_region_digitalWatch_time_running();
+		enterSequence_main_region_digitalWatch_time_running_buttons_default();
+		historyVector[1] = stateVector[1];
+	}
+	
+	/* 'default' enter sequence for state brPress */
+	private void enterSequence_main_region_digitalWatch_time_running_buttons_brPress_default() {
+		entryAction_main_region_digitalWatch_time_running_buttons_brPress();
 		nextStateIndex = 1;
-		stateVector[1] = State.main_region_digitalWatch_time_running;
+		stateVector[1] = State.main_region_digitalWatch_time_running_buttons_brPress;
+		
+		historyVector[2] = stateVector[1];
+	}
+	
+	/* 'default' enter sequence for state noButton */
+	private void enterSequence_main_region_digitalWatch_time_running_buttons_noButton_default() {
+		nextStateIndex = 1;
+		stateVector[1] = State.main_region_digitalWatch_time_running_buttons_noButton;
 		
 		historyVector[2] = stateVector[1];
 	}
 	
 	/* 'default' enter sequence for state stopped */
 	private void enterSequence_main_region_digitalWatch_time_stopped_default() {
-		entryAction_main_region_digitalWatch_time_stopped();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_digitalWatch_time_stopped;
-		
-		historyVector[2] = stateVector[1];
+		enterSequence_main_region_digitalWatch_time_stopped_buttons_default();
+		historyVector[1] = stateVector[1];
 	}
 	
-	/* 'default' enter sequence for state brPressed */
-	private void enterSequence_main_region_digitalWatch_time_brPressed_default() {
-		entryAction_main_region_digitalWatch_time_brPressed();
+	/* 'default' enter sequence for state noButton */
+	private void enterSequence_main_region_digitalWatch_time_stopped_buttons_noButton_default() {
+		entryAction_main_region_digitalWatch_time_stopped_buttons_noButton();
 		nextStateIndex = 1;
-		stateVector[1] = State.main_region_digitalWatch_time_brPressed;
-		
-		historyVector[2] = stateVector[1];
+		stateVector[1] = State.main_region_digitalWatch_time_stopped_buttons_noButton;
 	}
 	
 	/* 'default' enter sequence for state brPress */
-	private void enterSequence_main_region_digitalWatch_time_brPress_default() {
-		entryAction_main_region_digitalWatch_time_brPress();
+	private void enterSequence_main_region_digitalWatch_time_stopped_buttons_brPress_default() {
+		entryAction_main_region_digitalWatch_time_stopped_buttons_brPress();
 		nextStateIndex = 1;
-		stateVector[1] = State.main_region_digitalWatch_time_brPress;
-		
-		historyVector[2] = stateVector[1];
+		stateVector[1] = State.main_region_digitalWatch_time_stopped_buttons_brPress;
 	}
 	
 	/* 'default' enter sequence for state chronoOff */
 	private void enterSequence_main_region_digitalWatch_chrono_chronoOff_default() {
-		entryAction_main_region_digitalWatch_chrono_chronoOff();
 		nextStateIndex = 2;
 		stateVector[2] = State.main_region_digitalWatch_chrono_chronoOff;
 		
@@ -1134,15 +1151,20 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* 'default' enter sequence for state lightOn */
 	private void enterSequence_main_region_digitalWatch_light_lightOn_default() {
 		entryAction_main_region_digitalWatch_light_lightOn();
-		nextStateIndex = 3;
-		stateVector[3] = State.main_region_digitalWatch_light_lightOn;
+		enterSequence_main_region_digitalWatch_light_lightOn_buttons_default();
 	}
 	
-	/* 'default' enter sequence for state trReleased */
-	private void enterSequence_main_region_digitalWatch_light_trReleased_default() {
-		entryAction_main_region_digitalWatch_light_trReleased();
+	/* 'default' enter sequence for state noButton */
+	private void enterSequence_main_region_digitalWatch_light_lightOn_buttons_noButton_default() {
+		entryAction_main_region_digitalWatch_light_lightOn_buttons_noButton();
 		nextStateIndex = 3;
-		stateVector[3] = State.main_region_digitalWatch_light_trReleased;
+		stateVector[3] = State.main_region_digitalWatch_light_lightOn_buttons_noButton;
+	}
+	
+	/* 'default' enter sequence for state trPress */
+	private void enterSequence_main_region_digitalWatch_light_lightOn_buttons_trPress_default() {
+		nextStateIndex = 3;
+		stateVector[3] = State.main_region_digitalWatch_light_lightOn_buttons_trPress;
 	}
 	
 	/* 'default' enter sequence for state off */
@@ -1213,56 +1235,29 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		react_main_region_digitalWatch_main__entry_Default();
 	}
 	
-	/* shallow enterSequence with history in child main */
-	private void shallowEnterSequence_main_region_digitalWatch_main() {
-		switch (historyVector[0]) {
-		case main_region_digitalWatch_main_chrono:
-			enterSequence_main_region_digitalWatch_main_chrono_default();
-			break;
-		case main_region_digitalWatch_main_time:
-			enterSequence_main_region_digitalWatch_main_time_default();
-			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-			enterSequence_main_region_digitalWatch_main_timeEdit_default();
-			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-			enterSequence_main_region_digitalWatch_main_timeEdit_default();
-			break;
-		case main_region_digitalWatch_main_timeEdit_edit_blPress:
-			enterSequence_main_region_digitalWatch_main_timeEdit_default();
-			break;
-		case main_region_digitalWatch_main_timeEdit_edit_brPress:
-			enterSequence_main_region_digitalWatch_main_timeEdit_default();
-			break;
-		case main_region_digitalWatch_main_brPressed:
-			enterSequence_main_region_digitalWatch_main_brPressed_default();
-			break;
-		case main_region_digitalWatch_main_blPressed:
-			enterSequence_main_region_digitalWatch_main_blPressed_default();
-			break;
-		default:
-			break;
-		}
+	/* 'default' enter sequence for region buttons */
+	private void enterSequence_main_region_digitalWatch_main_time_buttons_default() {
+		react_main_region_digitalWatch_main_time_buttons__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region edit */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_edit_default() {
-		react_main_region_digitalWatch_main_timeEdit_edit__entry_Default();
+	private void enterSequence_main_region_digitalWatch_main_edit_edit_default() {
+		react_main_region_digitalWatch_main_edit_edit__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region flash */
-	private void enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_default() {
-		react_main_region_digitalWatch_main_timeEdit_edit_selection_flash__entry_Default();
+	private void enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_default() {
+		react_main_region_digitalWatch_main_edit_edit_selection_flash__entry_Default();
 	}
 	
 	/* shallow enterSequence with history in child flash */
-	private void shallowEnterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash() {
-		switch (historyVector[1]) {
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-			enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_default();
+	private void shallowEnterSequence_main_region_digitalWatch_main_edit_edit_selection_flash() {
+		switch (historyVector[0]) {
+		case main_region_digitalWatch_main_edit_edit_selection_flash_on:
+			enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on_default();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-			enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off_default();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_off:
+			enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off_default();
 			break;
 		default:
 			break;
@@ -1276,22 +1271,46 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	/* shallow enterSequence with history in child time */
 	private void shallowEnterSequence_main_region_digitalWatch_time() {
-		switch (historyVector[2]) {
-		case main_region_digitalWatch_time_running:
+		switch (historyVector[1]) {
+		case main_region_digitalWatch_time_running_buttons_brPress:
 			enterSequence_main_region_digitalWatch_time_running_default();
 			break;
-		case main_region_digitalWatch_time_stopped:
+		case main_region_digitalWatch_time_running_buttons_noButton:
+			enterSequence_main_region_digitalWatch_time_running_default();
+			break;
+		case main_region_digitalWatch_time_stopped_buttons_noButton:
 			enterSequence_main_region_digitalWatch_time_stopped_default();
 			break;
-		case main_region_digitalWatch_time_brPressed:
-			enterSequence_main_region_digitalWatch_time_brPressed_default();
-			break;
-		case main_region_digitalWatch_time_brPress:
-			enterSequence_main_region_digitalWatch_time_brPress_default();
+		case main_region_digitalWatch_time_stopped_buttons_brPress:
+			enterSequence_main_region_digitalWatch_time_stopped_default();
 			break;
 		default:
 			break;
 		}
+	}
+	
+	/* 'default' enter sequence for region buttons */
+	private void enterSequence_main_region_digitalWatch_time_running_buttons_default() {
+		react_main_region_digitalWatch_time_running_buttons__entry_Default();
+	}
+	
+	/* shallow enterSequence with history in child buttons */
+	private void shallowEnterSequence_main_region_digitalWatch_time_running_buttons() {
+		switch (historyVector[2]) {
+		case main_region_digitalWatch_time_running_buttons_brPress:
+			enterSequence_main_region_digitalWatch_time_running_buttons_brPress_default();
+			break;
+		case main_region_digitalWatch_time_running_buttons_noButton:
+			enterSequence_main_region_digitalWatch_time_running_buttons_noButton_default();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* 'default' enter sequence for region buttons */
+	private void enterSequence_main_region_digitalWatch_time_stopped_buttons_default() {
+		react_main_region_digitalWatch_time_stopped_buttons__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region chrono */
@@ -1316,6 +1335,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* 'default' enter sequence for region light */
 	private void enterSequence_main_region_digitalWatch_light_default() {
 		react_main_region_digitalWatch_light__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region buttons */
+	private void enterSequence_main_region_digitalWatch_light_lightOn_buttons_default() {
+		react_main_region_digitalWatch_light_lightOn_buttons__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region alarm */
@@ -1414,99 +1438,113 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	/* Default exit sequence for state time */
 	private void exitSequence_main_region_digitalWatch_main_time() {
+		exitSequence_main_region_digitalWatch_main_time_buttons();
+	}
+	
+	/* Default exit sequence for state noButton */
+	private void exitSequence_main_region_digitalWatch_main_time_buttons_noButton() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state timeEdit */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit();
-	}
-	
-	/* Default exit sequence for state selection */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection() {
-		exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash();
-		exitAction_main_region_digitalWatch_main_timeEdit_edit_selection();
-	}
-	
-	/* Default exit sequence for state on */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
-	}
-	
-	/* Default exit sequence for state off */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
 	}
 	
 	/* Default exit sequence for state blPress */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit_edit_blPress() {
+	private void exitSequence_main_region_digitalWatch_main_time_buttons_blPress() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_digitalWatch_main_timeEdit_edit_blPress();
+		exitAction_main_region_digitalWatch_main_time_buttons_blPress();
 	}
 	
 	/* Default exit sequence for state brPress */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit_edit_brPress() {
+	private void exitSequence_main_region_digitalWatch_main_time_buttons_brPress() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_digitalWatch_main_timeEdit_edit_brPress();
+		exitAction_main_region_digitalWatch_main_time_buttons_brPress();
 	}
 	
-	/* Default exit sequence for state brPressed */
-	private void exitSequence_main_region_digitalWatch_main_brPressed() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_digitalWatch_main_brPressed();
+	/* Default exit sequence for state edit */
+	private void exitSequence_main_region_digitalWatch_main_edit() {
+		exitSequence_main_region_digitalWatch_main_edit_edit();
 	}
 	
-	/* Default exit sequence for state blPressed */
-	private void exitSequence_main_region_digitalWatch_main_blPressed() {
+	/* Default exit sequence for state selection */
+	private void exitSequence_main_region_digitalWatch_main_edit_edit_selection() {
+		exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash();
+		exitAction_main_region_digitalWatch_main_edit_edit_selection();
+	}
+	
+	/* Default exit sequence for state on */
+	private void exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_digitalWatch_main_blPressed();
+		exitAction_main_region_digitalWatch_main_edit_edit_selection_flash_on();
+	}
+	
+	/* Default exit sequence for state off */
+	private void exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_digitalWatch_main_edit_edit_selection_flash_off();
+	}
+	
+	/* Default exit sequence for state blPress */
+	private void exitSequence_main_region_digitalWatch_main_edit_edit_blPress() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_digitalWatch_main_edit_edit_blPress();
+	}
+	
+	/* Default exit sequence for state brPress */
+	private void exitSequence_main_region_digitalWatch_main_edit_edit_brPress() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_digitalWatch_main_edit_edit_brPress();
 	}
 	
 	/* Default exit sequence for state running */
 	private void exitSequence_main_region_digitalWatch_time_running() {
+		exitSequence_main_region_digitalWatch_time_running_buttons();
+		exitAction_main_region_digitalWatch_time_running();
+	}
+	
+	/* Default exit sequence for state brPress */
+	private void exitSequence_main_region_digitalWatch_time_running_buttons_brPress() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
 		
-		exitAction_main_region_digitalWatch_time_running();
+		exitAction_main_region_digitalWatch_time_running_buttons_brPress();
+	}
+	
+	/* Default exit sequence for state noButton */
+	private void exitSequence_main_region_digitalWatch_time_running_buttons_noButton() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state stopped */
 	private void exitSequence_main_region_digitalWatch_time_stopped() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
-		
-		exitAction_main_region_digitalWatch_time_stopped();
+		exitSequence_main_region_digitalWatch_time_stopped_buttons();
 	}
 	
-	/* Default exit sequence for state brPressed */
-	private void exitSequence_main_region_digitalWatch_time_brPressed() {
+	/* Default exit sequence for state noButton */
+	private void exitSequence_main_region_digitalWatch_time_stopped_buttons_noButton() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
 		
-		exitAction_main_region_digitalWatch_time_brPressed();
+		exitAction_main_region_digitalWatch_time_stopped_buttons_noButton();
 	}
 	
 	/* Default exit sequence for state brPress */
-	private void exitSequence_main_region_digitalWatch_time_brPress() {
+	private void exitSequence_main_region_digitalWatch_time_stopped_buttons_brPress() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
 		
-		exitAction_main_region_digitalWatch_time_brPress();
+		exitAction_main_region_digitalWatch_time_stopped_buttons_brPress();
 	}
 	
 	/* Default exit sequence for state chronoOff */
@@ -1531,16 +1569,21 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	
 	/* Default exit sequence for state lightOn */
 	private void exitSequence_main_region_digitalWatch_light_lightOn() {
-		nextStateIndex = 3;
-		stateVector[3] = State.$NullState$;
+		exitSequence_main_region_digitalWatch_light_lightOn_buttons();
 	}
 	
-	/* Default exit sequence for state trReleased */
-	private void exitSequence_main_region_digitalWatch_light_trReleased() {
+	/* Default exit sequence for state noButton */
+	private void exitSequence_main_region_digitalWatch_light_lightOn_buttons_noButton() {
 		nextStateIndex = 3;
 		stateVector[3] = State.$NullState$;
 		
-		exitAction_main_region_digitalWatch_light_trReleased();
+		exitAction_main_region_digitalWatch_light_lightOn_buttons_noButton();
+	}
+	
+	/* Default exit sequence for state trPress */
+	private void exitSequence_main_region_digitalWatch_light_lightOn_buttons_trPress() {
+		nextStateIndex = 3;
+		stateVector[3] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state off */
@@ -1571,6 +1614,7 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Default exit sequence for state flashing */
 	private void exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing() {
 		exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1();
+		exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
 	}
 	
 	/* Default exit sequence for state lightOn */
@@ -1595,45 +1639,47 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		case main_region_digitalWatch_main_chrono:
 			exitSequence_main_region_digitalWatch_main_chrono();
 			break;
-		case main_region_digitalWatch_main_time:
-			exitSequence_main_region_digitalWatch_main_time();
+		case main_region_digitalWatch_main_time_buttons_noButton:
+			exitSequence_main_region_digitalWatch_main_time_buttons_noButton();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
-			exitAction_main_region_digitalWatch_main_timeEdit_edit_selection();
+		case main_region_digitalWatch_main_time_buttons_blPress:
+			exitSequence_main_region_digitalWatch_main_time_buttons_blPress();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
-			exitAction_main_region_digitalWatch_main_timeEdit_edit_selection();
+		case main_region_digitalWatch_main_time_buttons_brPress:
+			exitSequence_main_region_digitalWatch_main_time_buttons_brPress();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_blPress:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_blPress();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_on:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on();
+			exitAction_main_region_digitalWatch_main_edit_edit_selection();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_brPress:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_brPress();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_off:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off();
+			exitAction_main_region_digitalWatch_main_edit_edit_selection();
 			break;
-		case main_region_digitalWatch_main_brPressed:
-			exitSequence_main_region_digitalWatch_main_brPressed();
+		case main_region_digitalWatch_main_edit_edit_blPress:
+			exitSequence_main_region_digitalWatch_main_edit_edit_blPress();
 			break;
-		case main_region_digitalWatch_main_blPressed:
-			exitSequence_main_region_digitalWatch_main_blPressed();
+		case main_region_digitalWatch_main_edit_edit_brPress:
+			exitSequence_main_region_digitalWatch_main_edit_edit_brPress();
 			break;
 		default:
 			break;
 		}
 		
 		switch (stateVector[1]) {
-		case main_region_digitalWatch_time_running:
-			exitSequence_main_region_digitalWatch_time_running();
+		case main_region_digitalWatch_time_running_buttons_brPress:
+			exitSequence_main_region_digitalWatch_time_running_buttons_brPress();
+			exitAction_main_region_digitalWatch_time_running();
 			break;
-		case main_region_digitalWatch_time_stopped:
-			exitSequence_main_region_digitalWatch_time_stopped();
+		case main_region_digitalWatch_time_running_buttons_noButton:
+			exitSequence_main_region_digitalWatch_time_running_buttons_noButton();
+			exitAction_main_region_digitalWatch_time_running();
 			break;
-		case main_region_digitalWatch_time_brPressed:
-			exitSequence_main_region_digitalWatch_time_brPressed();
+		case main_region_digitalWatch_time_stopped_buttons_noButton:
+			exitSequence_main_region_digitalWatch_time_stopped_buttons_noButton();
 			break;
-		case main_region_digitalWatch_time_brPress:
-			exitSequence_main_region_digitalWatch_time_brPress();
+		case main_region_digitalWatch_time_stopped_buttons_brPress:
+			exitSequence_main_region_digitalWatch_time_stopped_buttons_brPress();
 			break;
 		default:
 			break;
@@ -1654,11 +1700,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		case main_region_digitalWatch_light_lightOff:
 			exitSequence_main_region_digitalWatch_light_lightOff();
 			break;
-		case main_region_digitalWatch_light_lightOn:
-			exitSequence_main_region_digitalWatch_light_lightOn();
+		case main_region_digitalWatch_light_lightOn_buttons_noButton:
+			exitSequence_main_region_digitalWatch_light_lightOn_buttons_noButton();
 			break;
-		case main_region_digitalWatch_light_trReleased:
-			exitSequence_main_region_digitalWatch_light_trReleased();
+		case main_region_digitalWatch_light_lightOn_buttons_trPress:
+			exitSequence_main_region_digitalWatch_light_lightOn_buttons_trPress();
 			break;
 		default:
 			break;
@@ -1676,9 +1722,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			break;
 		case main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn:
 			exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn();
+			exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
 			break;
 		case main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff:
 			exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff();
+			exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
 			break;
 		default:
 			break;
@@ -1691,28 +1739,45 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		case main_region_digitalWatch_main_chrono:
 			exitSequence_main_region_digitalWatch_main_chrono();
 			break;
-		case main_region_digitalWatch_main_time:
-			exitSequence_main_region_digitalWatch_main_time();
+		case main_region_digitalWatch_main_time_buttons_noButton:
+			exitSequence_main_region_digitalWatch_main_time_buttons_noButton();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
-			exitAction_main_region_digitalWatch_main_timeEdit_edit_selection();
+		case main_region_digitalWatch_main_time_buttons_blPress:
+			exitSequence_main_region_digitalWatch_main_time_buttons_blPress();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
-			exitAction_main_region_digitalWatch_main_timeEdit_edit_selection();
+		case main_region_digitalWatch_main_time_buttons_brPress:
+			exitSequence_main_region_digitalWatch_main_time_buttons_brPress();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_blPress:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_blPress();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_on:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on();
+			exitAction_main_region_digitalWatch_main_edit_edit_selection();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_brPress:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_brPress();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_off:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off();
+			exitAction_main_region_digitalWatch_main_edit_edit_selection();
 			break;
-		case main_region_digitalWatch_main_brPressed:
-			exitSequence_main_region_digitalWatch_main_brPressed();
+		case main_region_digitalWatch_main_edit_edit_blPress:
+			exitSequence_main_region_digitalWatch_main_edit_edit_blPress();
 			break;
-		case main_region_digitalWatch_main_blPressed:
-			exitSequence_main_region_digitalWatch_main_blPressed();
+		case main_region_digitalWatch_main_edit_edit_brPress:
+			exitSequence_main_region_digitalWatch_main_edit_edit_brPress();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region buttons */
+	private void exitSequence_main_region_digitalWatch_main_time_buttons() {
+		switch (stateVector[0]) {
+		case main_region_digitalWatch_main_time_buttons_noButton:
+			exitSequence_main_region_digitalWatch_main_time_buttons_noButton();
+			break;
+		case main_region_digitalWatch_main_time_buttons_blPress:
+			exitSequence_main_region_digitalWatch_main_time_buttons_blPress();
+			break;
+		case main_region_digitalWatch_main_time_buttons_brPress:
+			exitSequence_main_region_digitalWatch_main_time_buttons_brPress();
 			break;
 		default:
 			break;
@@ -1720,21 +1785,21 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	/* Default exit sequence for region edit */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit_edit() {
+	private void exitSequence_main_region_digitalWatch_main_edit_edit() {
 		switch (stateVector[0]) {
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
-			exitAction_main_region_digitalWatch_main_timeEdit_edit_selection();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_on:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on();
+			exitAction_main_region_digitalWatch_main_edit_edit_selection();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
-			exitAction_main_region_digitalWatch_main_timeEdit_edit_selection();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_off:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off();
+			exitAction_main_region_digitalWatch_main_edit_edit_selection();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_blPress:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_blPress();
+		case main_region_digitalWatch_main_edit_edit_blPress:
+			exitSequence_main_region_digitalWatch_main_edit_edit_blPress();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_brPress:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_brPress();
+		case main_region_digitalWatch_main_edit_edit_brPress:
+			exitSequence_main_region_digitalWatch_main_edit_edit_brPress();
 			break;
 		default:
 			break;
@@ -1742,13 +1807,13 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	/* Default exit sequence for region flash */
-	private void exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash() {
+	private void exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash() {
 		switch (stateVector[0]) {
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_on:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on();
 			break;
-		case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-			exitSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
+		case main_region_digitalWatch_main_edit_edit_selection_flash_off:
+			exitSequence_main_region_digitalWatch_main_edit_edit_selection_flash_off();
 			break;
 		default:
 			break;
@@ -1758,17 +1823,47 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Default exit sequence for region time */
 	private void exitSequence_main_region_digitalWatch_time() {
 		switch (stateVector[1]) {
-		case main_region_digitalWatch_time_running:
-			exitSequence_main_region_digitalWatch_time_running();
+		case main_region_digitalWatch_time_running_buttons_brPress:
+			exitSequence_main_region_digitalWatch_time_running_buttons_brPress();
+			exitAction_main_region_digitalWatch_time_running();
 			break;
-		case main_region_digitalWatch_time_stopped:
-			exitSequence_main_region_digitalWatch_time_stopped();
+		case main_region_digitalWatch_time_running_buttons_noButton:
+			exitSequence_main_region_digitalWatch_time_running_buttons_noButton();
+			exitAction_main_region_digitalWatch_time_running();
 			break;
-		case main_region_digitalWatch_time_brPressed:
-			exitSequence_main_region_digitalWatch_time_brPressed();
+		case main_region_digitalWatch_time_stopped_buttons_noButton:
+			exitSequence_main_region_digitalWatch_time_stopped_buttons_noButton();
 			break;
-		case main_region_digitalWatch_time_brPress:
-			exitSequence_main_region_digitalWatch_time_brPress();
+		case main_region_digitalWatch_time_stopped_buttons_brPress:
+			exitSequence_main_region_digitalWatch_time_stopped_buttons_brPress();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region buttons */
+	private void exitSequence_main_region_digitalWatch_time_running_buttons() {
+		switch (stateVector[1]) {
+		case main_region_digitalWatch_time_running_buttons_brPress:
+			exitSequence_main_region_digitalWatch_time_running_buttons_brPress();
+			break;
+		case main_region_digitalWatch_time_running_buttons_noButton:
+			exitSequence_main_region_digitalWatch_time_running_buttons_noButton();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region buttons */
+	private void exitSequence_main_region_digitalWatch_time_stopped_buttons() {
+		switch (stateVector[1]) {
+		case main_region_digitalWatch_time_stopped_buttons_noButton:
+			exitSequence_main_region_digitalWatch_time_stopped_buttons_noButton();
+			break;
+		case main_region_digitalWatch_time_stopped_buttons_brPress:
+			exitSequence_main_region_digitalWatch_time_stopped_buttons_brPress();
 			break;
 		default:
 			break;
@@ -1795,11 +1890,25 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		case main_region_digitalWatch_light_lightOff:
 			exitSequence_main_region_digitalWatch_light_lightOff();
 			break;
-		case main_region_digitalWatch_light_lightOn:
-			exitSequence_main_region_digitalWatch_light_lightOn();
+		case main_region_digitalWatch_light_lightOn_buttons_noButton:
+			exitSequence_main_region_digitalWatch_light_lightOn_buttons_noButton();
 			break;
-		case main_region_digitalWatch_light_trReleased:
-			exitSequence_main_region_digitalWatch_light_trReleased();
+		case main_region_digitalWatch_light_lightOn_buttons_trPress:
+			exitSequence_main_region_digitalWatch_light_lightOn_buttons_trPress();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region buttons */
+	private void exitSequence_main_region_digitalWatch_light_lightOn_buttons() {
+		switch (stateVector[3]) {
+		case main_region_digitalWatch_light_lightOn_buttons_noButton:
+			exitSequence_main_region_digitalWatch_light_lightOn_buttons_noButton();
+			break;
+		case main_region_digitalWatch_light_lightOn_buttons_trPress:
+			exitSequence_main_region_digitalWatch_light_lightOn_buttons_trPress();
 			break;
 		default:
 			break;
@@ -1820,9 +1929,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			break;
 		case main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn:
 			exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn();
+			exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
 			break;
 		case main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff:
 			exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff();
+			exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
 			break;
 		default:
 			break;
@@ -1837,9 +1948,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			break;
 		case main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn:
 			exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOn();
+			exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
 			break;
 		case main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff:
 			exitSequence_main_region_digitalWatch_alarm_alarmTriggered_on_flashing_r1_lightOff();
+			exitAction_main_region_digitalWatch_alarm_alarmTriggered_on_flashing();
 			break;
 		default:
 			break;
@@ -1867,34 +1980,64 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		}
 	}
 	
-	/* The reactions of state time. */
-	private void react_main_region_digitalWatch_main_time() {
+	/* The reactions of state noButton. */
+	private void react_main_region_digitalWatch_main_time_buttons_noButton() {
 		if (check_main_region_digitalWatch_main_time_tr0_tr0()) {
 			effect_main_region_digitalWatch_main_time_tr0();
 		} else {
-			if (check_main_region_digitalWatch_main_time_tr1_tr1()) {
-				effect_main_region_digitalWatch_main_time_tr1();
+			if (check_main_region_digitalWatch_main_time_buttons_noButton_tr0_tr0()) {
+				effect_main_region_digitalWatch_main_time_buttons_noButton_tr0();
 			} else {
-				if (check_main_region_digitalWatch_main_time_tr2_tr2()) {
-					effect_main_region_digitalWatch_main_time_tr2();
+				if (check_main_region_digitalWatch_main_time_buttons_noButton_tr1_tr1()) {
+					effect_main_region_digitalWatch_main_time_buttons_noButton_tr1();
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state blPress. */
+	private void react_main_region_digitalWatch_main_time_buttons_blPress() {
+		if (check_main_region_digitalWatch_main_time_tr0_tr0()) {
+			effect_main_region_digitalWatch_main_time_tr0();
+		} else {
+			if (check_main_region_digitalWatch_main_time_buttons_blPress_tr0_tr0()) {
+				effect_main_region_digitalWatch_main_time_buttons_blPress_tr0();
+			} else {
+				if (check_main_region_digitalWatch_main_time_buttons_blPress_tr1_tr1()) {
+					effect_main_region_digitalWatch_main_time_buttons_blPress_tr1();
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state brPress. */
+	private void react_main_region_digitalWatch_main_time_buttons_brPress() {
+		if (check_main_region_digitalWatch_main_time_tr0_tr0()) {
+			effect_main_region_digitalWatch_main_time_tr0();
+		} else {
+			if (check_main_region_digitalWatch_main_time_buttons_brPress_tr0_tr0()) {
+				effect_main_region_digitalWatch_main_time_buttons_brPress_tr0();
+			} else {
+				if (check_main_region_digitalWatch_main_time_buttons_brPress_tr1_tr1()) {
+					effect_main_region_digitalWatch_main_time_buttons_brPress_tr1();
 				}
 			}
 		}
 	}
 	
 	/* The reactions of state on. */
-	private void react_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on() {
-		if (check_main_region_digitalWatch_main_timeEdit_edit_selection_tr0_tr0()) {
-			effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr0();
+	private void react_main_region_digitalWatch_main_edit_edit_selection_flash_on() {
+		if (check_main_region_digitalWatch_main_edit_edit_selection_tr0_tr0()) {
+			effect_main_region_digitalWatch_main_edit_edit_selection_tr0();
 		} else {
-			if (check_main_region_digitalWatch_main_timeEdit_edit_selection_tr1_tr1()) {
-				effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr1();
+			if (check_main_region_digitalWatch_main_edit_edit_selection_tr1_tr1()) {
+				effect_main_region_digitalWatch_main_edit_edit_selection_tr1();
 			} else {
-				if (check_main_region_digitalWatch_main_timeEdit_edit_selection_tr2_tr2()) {
-					effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr2();
+				if (check_main_region_digitalWatch_main_edit_edit_selection_tr2_tr2()) {
+					effect_main_region_digitalWatch_main_edit_edit_selection_tr2();
 				} else {
-					if (check_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_tr0_tr0()) {
-						effect_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_tr0();
+					if (check_main_region_digitalWatch_main_edit_edit_selection_flash_on_tr0_tr0()) {
+						effect_main_region_digitalWatch_main_edit_edit_selection_flash_on_tr0();
 					}
 				}
 			}
@@ -1902,18 +2045,18 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	/* The reactions of state off. */
-	private void react_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off() {
-		if (check_main_region_digitalWatch_main_timeEdit_edit_selection_tr0_tr0()) {
-			effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr0();
+	private void react_main_region_digitalWatch_main_edit_edit_selection_flash_off() {
+		if (check_main_region_digitalWatch_main_edit_edit_selection_tr0_tr0()) {
+			effect_main_region_digitalWatch_main_edit_edit_selection_tr0();
 		} else {
-			if (check_main_region_digitalWatch_main_timeEdit_edit_selection_tr1_tr1()) {
-				effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr1();
+			if (check_main_region_digitalWatch_main_edit_edit_selection_tr1_tr1()) {
+				effect_main_region_digitalWatch_main_edit_edit_selection_tr1();
 			} else {
-				if (check_main_region_digitalWatch_main_timeEdit_edit_selection_tr2_tr2()) {
-					effect_main_region_digitalWatch_main_timeEdit_edit_selection_tr2();
+				if (check_main_region_digitalWatch_main_edit_edit_selection_tr2_tr2()) {
+					effect_main_region_digitalWatch_main_edit_edit_selection_tr2();
 				} else {
-					if (check_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off_tr0_tr0()) {
-						effect_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off_tr0();
+					if (check_main_region_digitalWatch_main_edit_edit_selection_flash_off_tr0_tr0()) {
+						effect_main_region_digitalWatch_main_edit_edit_selection_flash_off_tr0();
 					}
 				}
 			}
@@ -1921,93 +2064,75 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	/* The reactions of state blPress. */
-	private void react_main_region_digitalWatch_main_timeEdit_edit_blPress() {
-		if (check_main_region_digitalWatch_main_timeEdit_edit_blPress_tr0_tr0()) {
-			effect_main_region_digitalWatch_main_timeEdit_edit_blPress_tr0();
+	private void react_main_region_digitalWatch_main_edit_edit_blPress() {
+		if (check_main_region_digitalWatch_main_edit_edit_blPress_tr0_tr0()) {
+			effect_main_region_digitalWatch_main_edit_edit_blPress_tr0();
 		} else {
-			if (check_main_region_digitalWatch_main_timeEdit_edit_blPress_tr1_tr1()) {
-				effect_main_region_digitalWatch_main_timeEdit_edit_blPress_tr1();
+			if (check_main_region_digitalWatch_main_edit_edit_blPress_tr1_tr1()) {
+				effect_main_region_digitalWatch_main_edit_edit_blPress_tr1();
 			}
 		}
 	}
 	
 	/* The reactions of state brPress. */
-	private void react_main_region_digitalWatch_main_timeEdit_edit_brPress() {
-		if (check_main_region_digitalWatch_main_timeEdit_edit_brPress_tr0_tr0()) {
-			effect_main_region_digitalWatch_main_timeEdit_edit_brPress_tr0();
+	private void react_main_region_digitalWatch_main_edit_edit_brPress() {
+		if (check_main_region_digitalWatch_main_edit_edit_brPress_tr0_tr0()) {
+			effect_main_region_digitalWatch_main_edit_edit_brPress_tr0();
 		} else {
-			if (check_main_region_digitalWatch_main_timeEdit_edit_brPress_tr1_tr1()) {
-				effect_main_region_digitalWatch_main_timeEdit_edit_brPress_tr1();
+			if (check_main_region_digitalWatch_main_edit_edit_brPress_tr1_tr1()) {
+				effect_main_region_digitalWatch_main_edit_edit_brPress_tr1();
 			}
 		}
 	}
 	
-	/* The reactions of state brPressed. */
-	private void react_main_region_digitalWatch_main_brPressed() {
-		if (check_main_region_digitalWatch_main_brPressed_tr0_tr0()) {
-			effect_main_region_digitalWatch_main_brPressed_tr0();
-		} else {
-			if (check_main_region_digitalWatch_main_brPressed_tr1_tr1()) {
-				effect_main_region_digitalWatch_main_brPressed_tr1();
-			}
-		}
-	}
-	
-	/* The reactions of state blPressed. */
-	private void react_main_region_digitalWatch_main_blPressed() {
-		if (check_main_region_digitalWatch_main_blPressed_tr0_tr0()) {
-			effect_main_region_digitalWatch_main_blPressed_tr0();
-		} else {
-			if (check_main_region_digitalWatch_main_blPressed_tr1_tr1()) {
-				effect_main_region_digitalWatch_main_blPressed_tr1();
-			}
-		}
-	}
-	
-	/* The reactions of state running. */
-	private void react_main_region_digitalWatch_time_running() {
+	/* The reactions of state brPress. */
+	private void react_main_region_digitalWatch_time_running_buttons_brPress() {
 		if (check_main_region_digitalWatch_time_running_tr0_tr0()) {
 			effect_main_region_digitalWatch_time_running_tr0();
 		} else {
-			if (check_main_region_digitalWatch_time_running_tr1_tr1()) {
-				effect_main_region_digitalWatch_time_running_tr1();
-			}
-		}
-	}
-	
-	/* The reactions of state stopped. */
-	private void react_main_region_digitalWatch_time_stopped() {
-		if (check_main_region_digitalWatch_time_stopped_tr0_tr0()) {
-			effect_main_region_digitalWatch_time_stopped_tr0();
-		} else {
-			if (check_main_region_digitalWatch_time_stopped_tr1_tr1()) {
-				effect_main_region_digitalWatch_time_stopped_tr1();
+			if (check_main_region_digitalWatch_time_running_buttons_brPress_tr0_tr0()) {
+				effect_main_region_digitalWatch_time_running_buttons_brPress_tr0();
 			} else {
-				if (check_main_region_digitalWatch_time_stopped_tr2_tr2()) {
-					effect_main_region_digitalWatch_time_stopped_tr2();
+				if (check_main_region_digitalWatch_time_running_buttons_brPress_tr1_tr1()) {
+					effect_main_region_digitalWatch_time_running_buttons_brPress_tr1();
 				}
 			}
 		}
 	}
 	
-	/* The reactions of state brPressed. */
-	private void react_main_region_digitalWatch_time_brPressed() {
-		if (check_main_region_digitalWatch_time_brPressed_tr0_tr0()) {
-			effect_main_region_digitalWatch_time_brPressed_tr0();
+	/* The reactions of state noButton. */
+	private void react_main_region_digitalWatch_time_running_buttons_noButton() {
+		if (check_main_region_digitalWatch_time_running_tr0_tr0()) {
+			effect_main_region_digitalWatch_time_running_tr0();
 		} else {
-			if (check_main_region_digitalWatch_time_brPressed_tr1_tr1()) {
-				effect_main_region_digitalWatch_time_brPressed_tr1();
+			if (check_main_region_digitalWatch_time_running_buttons_noButton_tr0_tr0()) {
+				effect_main_region_digitalWatch_time_running_buttons_noButton_tr0();
+			}
+		}
+	}
+	
+	/* The reactions of state noButton. */
+	private void react_main_region_digitalWatch_time_stopped_buttons_noButton() {
+		if (check_main_region_digitalWatch_time_stopped_buttons_noButton_tr0_tr0()) {
+			effect_main_region_digitalWatch_time_stopped_buttons_noButton_tr0();
+		} else {
+			if (check_main_region_digitalWatch_time_stopped_buttons_noButton_tr1_tr1()) {
+				effect_main_region_digitalWatch_time_stopped_buttons_noButton_tr1();
+			} else {
+				if (check_main_region_digitalWatch_time_stopped_buttons_noButton_tr2_tr2()) {
+					effect_main_region_digitalWatch_time_stopped_buttons_noButton_tr2();
+				}
 			}
 		}
 	}
 	
 	/* The reactions of state brPress. */
-	private void react_main_region_digitalWatch_time_brPress() {
-		if (check_main_region_digitalWatch_time_brPress_tr0_tr0()) {
-			effect_main_region_digitalWatch_time_brPress_tr0();
+	private void react_main_region_digitalWatch_time_stopped_buttons_brPress() {
+		if (check_main_region_digitalWatch_time_stopped_buttons_brPress_tr0_tr0()) {
+			effect_main_region_digitalWatch_time_stopped_buttons_brPress_tr0();
 		} else {
-			if (check_main_region_digitalWatch_time_brPress_tr1_tr1()) {
-				effect_main_region_digitalWatch_time_brPress_tr1();
+			if (check_main_region_digitalWatch_time_stopped_buttons_brPress_tr1_tr1()) {
+				effect_main_region_digitalWatch_time_stopped_buttons_brPress_tr1();
 			}
 		}
 	}
@@ -2045,21 +2170,21 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		}
 	}
 	
-	/* The reactions of state lightOn. */
-	private void react_main_region_digitalWatch_light_lightOn() {
-		if (check_main_region_digitalWatch_light_lightOn_tr0_tr0()) {
-			effect_main_region_digitalWatch_light_lightOn_tr0();
+	/* The reactions of state noButton. */
+	private void react_main_region_digitalWatch_light_lightOn_buttons_noButton() {
+		if (check_main_region_digitalWatch_light_lightOn_buttons_noButton_tr0_tr0()) {
+			effect_main_region_digitalWatch_light_lightOn_buttons_noButton_tr0();
+		} else {
+			if (check_main_region_digitalWatch_light_lightOn_buttons_noButton_tr1_tr1()) {
+				effect_main_region_digitalWatch_light_lightOn_buttons_noButton_tr1();
+			}
 		}
 	}
 	
-	/* The reactions of state trReleased. */
-	private void react_main_region_digitalWatch_light_trReleased() {
-		if (check_main_region_digitalWatch_light_trReleased_tr0_tr0()) {
-			effect_main_region_digitalWatch_light_trReleased_tr0();
-		} else {
-			if (check_main_region_digitalWatch_light_trReleased_tr1_tr1()) {
-				effect_main_region_digitalWatch_light_trReleased_tr1();
-			}
+	/* The reactions of state trPress. */
+	private void react_main_region_digitalWatch_light_lightOn_buttons_trPress() {
+		if (check_main_region_digitalWatch_light_lightOn_buttons_trPress_tr0_tr0()) {
+			effect_main_region_digitalWatch_light_lightOn_buttons_trPress_tr0();
 		}
 	}
 	
@@ -2123,35 +2248,50 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 		enterSequence_main_region_digitalWatch_default();
 	}
 	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_digitalWatch_main_time_buttons__entry_Default() {
+		enterSequence_main_region_digitalWatch_main_time_buttons_noButton_default();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_digitalWatch_main_edit_edit__entry_Default() {
+		enterSequence_main_region_digitalWatch_main_edit_edit_selection_default();
+	}
+	
 	/* Default react sequence for shallow history entry  */
-	private void react_main_region_digitalWatch_main__entry_Default() {
+	private void react_main_region_digitalWatch_main_edit_edit_selection_flash__entry_Default() {
 		/* Enter the region with shallow history */
 		if (historyVector[0] != State.$NullState$) {
-			shallowEnterSequence_main_region_digitalWatch_main();
+			shallowEnterSequence_main_region_digitalWatch_main_edit_edit_selection_flash();
 		} else {
-			enterSequence_main_region_digitalWatch_main_time_default();
+			enterSequence_main_region_digitalWatch_main_edit_edit_selection_flash_on_default();
 		}
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_region_digitalWatch_main_timeEdit_edit__entry_Default() {
-		enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_default();
+	private void react_main_region_digitalWatch_main__entry_Default() {
+		enterSequence_main_region_digitalWatch_main_time_default();
 	}
 	
 	/* Default react sequence for shallow history entry  */
-	private void react_main_region_digitalWatch_main_timeEdit_edit_selection_flash__entry_Default() {
+	private void react_main_region_digitalWatch_time_running_buttons__entry_Default() {
 		/* Enter the region with shallow history */
-		if (historyVector[1] != State.$NullState$) {
-			shallowEnterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash();
+		if (historyVector[2] != State.$NullState$) {
+			shallowEnterSequence_main_region_digitalWatch_time_running_buttons();
 		} else {
-			enterSequence_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on_default();
+			enterSequence_main_region_digitalWatch_time_running_buttons_noButton_default();
 		}
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_digitalWatch_time_stopped_buttons__entry_Default() {
+		enterSequence_main_region_digitalWatch_time_stopped_buttons_noButton_default();
 	}
 	
 	/* Default react sequence for shallow history entry  */
 	private void react_main_region_digitalWatch_time__entry_Default() {
 		/* Enter the region with shallow history */
-		if (historyVector[2] != State.$NullState$) {
+		if (historyVector[1] != State.$NullState$) {
 			shallowEnterSequence_main_region_digitalWatch_time();
 		} else {
 			enterSequence_main_region_digitalWatch_time_running_default();
@@ -2171,6 +2311,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	/* Default react sequence for initial entry  */
 	private void react_main_region_digitalWatch_light__entry_Default() {
 		enterSequence_main_region_digitalWatch_light_lightOff_default();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_digitalWatch_light_lightOn_buttons__entry_Default() {
+		enterSequence_main_region_digitalWatch_light_lightOn_buttons_trPress_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -2208,38 +2353,38 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			case main_region_digitalWatch_main_chrono:
 				react_main_region_digitalWatch_main_chrono();
 				break;
-			case main_region_digitalWatch_main_time:
-				react_main_region_digitalWatch_main_time();
+			case main_region_digitalWatch_main_time_buttons_noButton:
+				react_main_region_digitalWatch_main_time_buttons_noButton();
 				break;
-			case main_region_digitalWatch_main_timeEdit_edit_selection_flash_on:
-				react_main_region_digitalWatch_main_timeEdit_edit_selection_flash_on();
+			case main_region_digitalWatch_main_time_buttons_blPress:
+				react_main_region_digitalWatch_main_time_buttons_blPress();
 				break;
-			case main_region_digitalWatch_main_timeEdit_edit_selection_flash_off:
-				react_main_region_digitalWatch_main_timeEdit_edit_selection_flash_off();
+			case main_region_digitalWatch_main_time_buttons_brPress:
+				react_main_region_digitalWatch_main_time_buttons_brPress();
 				break;
-			case main_region_digitalWatch_main_timeEdit_edit_blPress:
-				react_main_region_digitalWatch_main_timeEdit_edit_blPress();
+			case main_region_digitalWatch_main_edit_edit_selection_flash_on:
+				react_main_region_digitalWatch_main_edit_edit_selection_flash_on();
 				break;
-			case main_region_digitalWatch_main_timeEdit_edit_brPress:
-				react_main_region_digitalWatch_main_timeEdit_edit_brPress();
+			case main_region_digitalWatch_main_edit_edit_selection_flash_off:
+				react_main_region_digitalWatch_main_edit_edit_selection_flash_off();
 				break;
-			case main_region_digitalWatch_main_brPressed:
-				react_main_region_digitalWatch_main_brPressed();
+			case main_region_digitalWatch_main_edit_edit_blPress:
+				react_main_region_digitalWatch_main_edit_edit_blPress();
 				break;
-			case main_region_digitalWatch_main_blPressed:
-				react_main_region_digitalWatch_main_blPressed();
+			case main_region_digitalWatch_main_edit_edit_brPress:
+				react_main_region_digitalWatch_main_edit_edit_brPress();
 				break;
-			case main_region_digitalWatch_time_running:
-				react_main_region_digitalWatch_time_running();
+			case main_region_digitalWatch_time_running_buttons_brPress:
+				react_main_region_digitalWatch_time_running_buttons_brPress();
 				break;
-			case main_region_digitalWatch_time_stopped:
-				react_main_region_digitalWatch_time_stopped();
+			case main_region_digitalWatch_time_running_buttons_noButton:
+				react_main_region_digitalWatch_time_running_buttons_noButton();
 				break;
-			case main_region_digitalWatch_time_brPressed:
-				react_main_region_digitalWatch_time_brPressed();
+			case main_region_digitalWatch_time_stopped_buttons_noButton:
+				react_main_region_digitalWatch_time_stopped_buttons_noButton();
 				break;
-			case main_region_digitalWatch_time_brPress:
-				react_main_region_digitalWatch_time_brPress();
+			case main_region_digitalWatch_time_stopped_buttons_brPress:
+				react_main_region_digitalWatch_time_stopped_buttons_brPress();
 				break;
 			case main_region_digitalWatch_chrono_chronoOff:
 				react_main_region_digitalWatch_chrono_chronoOff();
@@ -2250,11 +2395,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 			case main_region_digitalWatch_light_lightOff:
 				react_main_region_digitalWatch_light_lightOff();
 				break;
-			case main_region_digitalWatch_light_lightOn:
-				react_main_region_digitalWatch_light_lightOn();
+			case main_region_digitalWatch_light_lightOn_buttons_noButton:
+				react_main_region_digitalWatch_light_lightOn_buttons_noButton();
 				break;
-			case main_region_digitalWatch_light_trReleased:
-				react_main_region_digitalWatch_light_trReleased();
+			case main_region_digitalWatch_light_lightOn_buttons_trPress:
+				react_main_region_digitalWatch_light_lightOn_buttons_trPress();
 				break;
 			case main_region_digitalWatch_alarm_off:
 				react_main_region_digitalWatch_alarm_off();
