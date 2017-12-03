@@ -8,7 +8,7 @@ import org.yakindu.scr.impl.DigitalWatchViewImpl;
 public class Main {
 
 	/**
-	 * @param args
+	 * @param args111
 	 */
 	public static void main(String[] args) {
 		DigitalwatchStatemachine sm = new DigitalwatchStatemachine();
