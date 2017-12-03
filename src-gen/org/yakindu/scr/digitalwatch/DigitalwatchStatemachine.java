@@ -433,11 +433,11 @@ public class DigitalwatchStatemachine implements IDigitalwatchStatemachine {
 	}
 	
 	private boolean check_main_region_digitalWatch_time_running_buttons_brPress_tr1_tr1() {
-		return (timeEvents[7]) && (isStateActive(State.main_region_digitalWatch_main_time));
+		return timeEvents[7];
 	}
 	
 	private boolean check_main_region_digitalWatch_time_running_buttons_noButton_tr0_tr0() {
-		return sCIButtons.bottomRightPressed;
+		return (sCIButtons.bottomRightPressed) && (isStateActive(State.main_region_digitalWatch_main_time));
 	}
 	
 	private boolean check_main_region_digitalWatch_time_running_timeUpdate_update_tr0_tr0() {

@@ -70,10 +70,10 @@
             <regions xmi:id="_Wmj2gNacEeeM7_mkgRFqEQ" name="buttons">
               <vertices xsi:type="sgraph:State" xmi:id="_X2EWkNacEeeM7_mkgRFqEQ" specification="" name="brPress" incomingTransitions="_RMiBUNadEeeM7_mkgRFqEQ">
                 <outgoingTransitions xmi:id="_T6jt0NadEeeM7_mkgRFqEQ" specification="Buttons.bottomRightReleased" target="_nAq4gNacEeeM7_mkgRFqEQ"/>
-                <outgoingTransitions xmi:id="_b2GgsNagEeeM7_mkgRFqEQ" specification="after 1500ms&#xD;&#xA;[active(main.time)]" target="_F-33YNBNEee1mL3K8VTzWA"/>
+                <outgoingTransitions xmi:id="_b2GgsNagEeeM7_mkgRFqEQ" specification="after 1500ms&#xD;&#xA;" target="_F-33YNBNEee1mL3K8VTzWA"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_nAq4gNacEeeM7_mkgRFqEQ" name="noButton" incomingTransitions="_T6jt0NadEeeM7_mkgRFqEQ _oqQXUNdeEee7FuUCI3BGnA">
-                <outgoingTransitions xmi:id="_RMiBUNadEeeM7_mkgRFqEQ" specification="Buttons.bottomRightPressed" target="_X2EWkNacEeeM7_mkgRFqEQ"/>
+                <outgoingTransitions xmi:id="_RMiBUNadEeeM7_mkgRFqEQ" specification="Buttons.bottomRightPressed&#xD;&#xA;[active(main.time)]" target="_X2EWkNacEeeM7_mkgRFqEQ"/>
               </vertices>
               <vertices xsi:type="sgraph:Entry" xmi:id="_oFF0wNdeEee7FuUCI3BGnA">
                 <outgoingTransitions xmi:id="_oqQXUNdeEee7FuUCI3BGnA" specification="" target="_nAq4gNacEeeM7_mkgRFqEQ"/>
@@ -1559,7 +1559,7 @@
     <edges xmi:id="_T6k78NadEeeM7_mkgRFqEQ" type="Transition" element="_T6jt0NadEeeM7_mkgRFqEQ" source="_X2E9otacEeeM7_mkgRFqEQ" target="_nArfkdacEeeM7_mkgRFqEQ">
       <children xsi:type="notation:DecorationNode" xmi:id="_T6k79NadEeeM7_mkgRFqEQ" type="TransitionExpression">
         <styles xsi:type="notation:ShapeStyle" xmi:id="_T6k79dadEeeM7_mkgRFqEQ"/>
-        <layoutConstraint xsi:type="notation:Location" xmi:id="_T6k79tadEeeM7_mkgRFqEQ" x="54" y="-96"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_T6k79tadEeeM7_mkgRFqEQ" x="24" y="-42"/>
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_T6k78dadEeeM7_mkgRFqEQ" routing="Rectilinear" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_T6k789adEeeM7_mkgRFqEQ" fontName="Verdana"/>
